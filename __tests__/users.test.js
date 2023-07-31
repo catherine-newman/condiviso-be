@@ -58,15 +58,15 @@ describe("POST /api/users", () => {
       })
       .expect(201)
       .then(() => {
-        return connectToDatabase()
+        return connectToDatabase();
       })
       .then((client) => {
         const collection = client.db().collection("users");
-        return collection.findOne({ user_name: "testperson2"})
+        return collection.findOne({ user_name: "testperson2" });
       })
       .then((findResult) => {
         expect(findResult).not.toBe(null);
-      })
+      });
   });
   test("status:400, responds with an error message when the request is missing data", () => {
     return request(app)
