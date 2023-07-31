@@ -115,7 +115,7 @@ describe("POST /api/users", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("status:400, responds with an error message when username already exists", () => {
+  test("status:409, responds with an error message when username already exists", () => {
     return request(app)
       .post("/api/users")
       .send({
