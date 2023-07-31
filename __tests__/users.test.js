@@ -32,7 +32,7 @@ describe("POST /api/users", () => {
         email: "email@email.com",
         user_name: "testperson",
         address: "123 street",
-        postcode: "sk138vl",
+        postcode: "M1 7ED",
         about_me: "I'm just a test",
         recipes: "a recipe string",
         recipe_image: "a recipe image",
@@ -61,7 +61,26 @@ describe("POST /api/users", () => {
         email: "emaidfsdfm",
         user_name: "testperson",
         address: "123 street",
-        postcode: "sk138vl",
+        postcode: "M1 7ED",
+        about_me: "I'm just a test",
+        recipes: "a recipe string",
+        recipe_image: "a recipe image",
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:400, responds with an error message when the postcode is invalid", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        first_name: "test",
+        last_name: "person",
+        email: "email@email.com",
+        user_name: "testperson",
+        address: "123 street",
+        postcode: "sk13sdfff",
         about_me: "I'm just a test",
         recipes: "a recipe string",
         recipe_image: "a recipe image",
@@ -80,7 +99,7 @@ describe("POST /api/users", () => {
         user_name: "dwycliffe9",
         email: "email@email.com",
         address: "123 street",
-        postcode: "sk138vl",
+        postcode: "M1 7ED",
         about_me: "I'm just a test",
         recipes: "a recipe string",
         recipe_image: "a recipe image",

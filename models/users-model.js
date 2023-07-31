@@ -24,7 +24,8 @@ exports.addUser = async (
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailRegex.test(email)) {
+    const postcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/;
+    if (!emailRegex.test(email) || !postcodeRegex.test(postcode)) {
       return Promise.reject({ status: 400, msg: "Bad Request" });
     }
   try {
