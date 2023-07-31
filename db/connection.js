@@ -1,38 +1,32 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const ENV = process.env.NODE_ENV || "development";
+const ENV = process.env.NODE_ENV;
 
 require("dotenv").config({
   path: `${__dirname}/../.env.${ENV}`,
 });
 
-if (!process.env.ATLAS_URI && !process.env.LOCAL_MONGODB_DATABASE) {
+if (!process.env.ATLAS_URI && !process.env.LOCAL_MONGODB_URI) {
   console.log(`${__dirname}/.env.${ENV}`);
-  throw new Error("ATLAS_URI or LOCAL_MONGODB_DATABASE not set");
+  throw new Error("ATLAS_URI or LOCAL_MONGODB_URI not set");
 }
 
-let client;
+let client = null;
 
 async function connectToDatabase() {
+  if (client && client.topology.isConnected()) {
+    return client;
+  }
+  let uri;
+  if (ENV === "production") {
+    uri = process.env.ATLAS_URI;
+  } else {
+    uri = process.env.LOCAL_MONGODB_URI;
+  }
   try {
-    let uri;
-    if (ENV === "production") {
-      uri = process.env.ATLAS_URI;
-    } else {
-      const localDatabaseName = process.env.LOCAL_MONGODB_DATABASE;
-      uri = `mongodb://localhost:27017/${localDatabaseName}`;
-    }
-
-    client = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
+    client = await MongoClient.connect(uri, {
+      minPoolSize: 5,
     });
-
-    await client.connect();
-    console.log(`Connected successfully to the ${ENV} database.`);
-    return client.db();
+    return client;
   } catch (error) {
     console.error(`Error connecting to the ${ENV} database:`, error);
     throw error;
@@ -43,7 +37,6 @@ async function closeConnection() {
   try {
     if (client) {
       await client.close();
-      console.log("Connection to the database closed.");
     }
   } catch (error) {
     console.error("Error closing database connection:", error);
