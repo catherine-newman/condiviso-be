@@ -10,7 +10,9 @@ if (!process.env.ATLAS_URI && !process.env.LOCAL_MONGODB_DATABASE) {
   throw new Error("ATLAS_URI or LOCAL_MONGODB_DATABASE not set");
 }
 
-async function connectToDatabase(databaseName) {
+let client;
+
+async function connectToDatabase() {
   try {
     let uri;
     if (ENV === "production") {
@@ -20,7 +22,7 @@ async function connectToDatabase(databaseName) {
       uri = `mongodb://localhost:27017/${localDatabaseName}`;
     }
 
-    const client = new MongoClient(uri, {
+    client = new MongoClient(uri, {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -29,14 +31,26 @@ async function connectToDatabase(databaseName) {
     });
 
     await client.connect();
-    console.log(`Connected successfully to the ${databaseName} database.`);
-    return client.db(databaseName);
+    console.log(`Connected successfully to the ${ENV} database.`);
+    return client.db();
   } catch (error) {
-    console.error(`Error connecting to the ${databaseName} database:`, error);
+    console.error(`Error connecting to the ${ENV} database:`, error);
     throw error;
+  }
+}
+
+async function closeConnection() {
+  try {
+    if (client) {
+      await client.close();
+      console.log("Connection to the database closed.");
+    }
+  } catch (error) {
+    console.error("Error closing database connection:", error);
   }
 }
 
 module.exports = {
   connectToDatabase,
+  closeConnection,
 };
