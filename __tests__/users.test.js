@@ -1,8 +1,7 @@
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const { MongoClient } = require("mongodb");
 const app = require("../app");
 const request = require("supertest");
-const { closeConnection } = require("../db/connection");
+const { connectToDatabase, closeConnection } = require("../db/connection");
 const seedDatabase = require("../db/data/run-seed");
 
 let mongod;
@@ -23,7 +22,7 @@ afterAll(async () => {
 });
 
 describe("POST /api/users", () => {
-  test("adds a new user and acknowledges the post request and returns an id", () => {
+  test("acknowledges the post request and returns an id", () => {
     return request(app)
       .post("/api/users")
       .send({
@@ -43,6 +42,32 @@ describe("POST /api/users", () => {
         expect(body.result).toHaveProperty("insertedId", expect.any(String));
       });
   });
+  test("adds a new user", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        first_name: "test",
+        last_name: "person",
+        email: "email@email.com",
+        user_name: "testperson2",
+        address: "123 street",
+        postcode: "M1 7ED",
+        about_me: "I'm just a test",
+        recipes: "a recipe string",
+        recipe_image: "a recipe image",
+      })
+      .expect(201)
+      .then(() => {
+        return connectToDatabase()
+      })
+      .then((client) => {
+        const collection = client.db().collection("users");
+        return collection.findOne({ user_name: "testperson2"})
+      })
+      .then((findResult) => {
+        expect(findResult).not.toBe(null);
+      })
+  });
   test("status:400, responds with an error message when the request is missing data", () => {
     return request(app)
       .post("/api/users")
@@ -59,7 +84,7 @@ describe("POST /api/users", () => {
         first_name: "test",
         last_name: "person",
         email: "emaidfsdfm",
-        user_name: "testperson",
+        user_name: "testperson3",
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
@@ -78,7 +103,7 @@ describe("POST /api/users", () => {
         first_name: "test",
         last_name: "person",
         email: "email@email.com",
-        user_name: "testperson",
+        user_name: "testperson4",
         address: "123 street",
         postcode: "sk13sdfff",
         about_me: "I'm just a test",
