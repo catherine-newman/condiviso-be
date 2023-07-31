@@ -9,3 +9,4 @@ exports.getExample = (req, res, next) => {
       return next(err);
     });
 };
+
