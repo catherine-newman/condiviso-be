@@ -43,10 +43,29 @@ describe("POST /api/users", () => {
         expect(body.result).toHaveProperty("insertedId", expect.any(String));
       });
   });
-  test("status:400, responds with an error message when the request does not follow the desired format", () => {
+  test("status:400, responds with an error message when the request is missing data", () => {
     return request(app)
       .post("/api/users")
       .send({})
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:400, responds with an error message when the email is invalid", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        first_name: "test",
+        last_name: "person",
+        email: "emaidfsdfm",
+        user_name: "testperson",
+        address: "123 street",
+        postcode: "sk138vl",
+        about_me: "I'm just a test",
+        recipes: "a recipe string",
+        recipe_image: "a recipe image",
+      })
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Bad Request");

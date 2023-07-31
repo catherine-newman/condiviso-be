@@ -23,6 +23,10 @@ exports.addUser = async (
     !recipe_image
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(email)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
   try {
     const client = await connectToDatabase();
     const collection = client.db().collection("users");
