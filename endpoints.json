@@ -1,0 +1,22 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api",
+    "queries": [],
+    "format": "",
+    "exampleResponse": {
+      "endpoints": {
+        "GET /api/events": {
+          "description": "serves an array of all events",
+          "queries": [],
+          "exampleResponse": {
+            "events": [
+              {
+                "CHANGES NEEDED": "CHANGES NEEDED"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
