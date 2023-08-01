@@ -1,4 +1,4 @@
-const { addEvent } = require("../models/events-model");
+const { addEvent, findEvent } = require("../models/events-model");
 
 exports.postEvent = (req, res, next) => {
   const {
@@ -43,6 +43,17 @@ exports.postEvent = (req, res, next) => {
   )
     .then((data) => {
       res.status(201).send({ result: data });
+    })
+    .catch((err) => {
+      return next(err);
+    });
+};
+
+exports.getEvent = (req, res, next) => {
+  const { event_id } = req.params;
+  findEvent(event_id)
+    .then((data) => {
+      res.status(200).send({ event: data });
     })
     .catch((err) => {
       return next(err);
