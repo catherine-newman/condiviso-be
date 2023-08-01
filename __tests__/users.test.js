@@ -139,7 +139,7 @@ describe("POST /api/users", () => {
 describe("GET /api/users/:_id", () => {
   test("return 200 status, should return a single user", () => {
     return request(app)
-      .get("/api/users/64c7abf68c2d17441844e6fd")
+      .get("/api/users/64c7abf68c2d17441844e6fe")
       .expect(200)
       .then(({body}) => {
         expect(body).toHaveProperty("first_name");
@@ -157,21 +157,18 @@ describe("GET /api/users/:_id", () => {
         expect(recipe).toHaveProperty("recipe_image")
         expect(recipe).toHaveProperty("recipe_content")
       })
-        
-
-
       })
-     
   });
 });
-describe('Error Handling 400/404', () => {
+
+describe('Error Handling 404', () => {
   test.only('should return 404 status, should return an error when the user is not found', () => {
     return request(app)
-    .get("/api/users/64c7abf68c2d17441844e6fd")
+    .get("/api/users/64c7abf68c2d17441844e711")
     .expect(404)
     .then(({body})  => {
-      // expect(body).toHaveProperty("message");
-      // expect(body.message).toBe("Article not found");
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("User not found");
     });
   });
 });

@@ -58,12 +58,10 @@ exports.addUser = async (
 
 exports.findUser = (user_id) => {
   return connectToDatabase().then((client) => {
-    
     const collection = client.db().collection("users");
-console.log(Object.keys(collection.client), "Object keys");
-    if (Object.keys(collection).length === 0) {
-      return Promise.reject({ status: 404, message: "User not found"})
-    }
+    // if (Object.keys(collection).length === 0) {
+    //   return Promise.reject({ status: 404, message: "User not found"})
+    // }
     return collection.findOne({_id: user_id });
   });
 };
