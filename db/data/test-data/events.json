@@ -6,16 +6,21 @@
     "last_name": "Sainz",
     "user_name": "murling0",
     "email": "ssainz0@weebly.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-01T00:00:00.000Z",
     "event_location": "65231 Brentwood Avenue",
-    "latitude": -7.7016409,
-    "longitude": 112.9827091,
-    "latitude_fuzzy": 11.3451287,
-    "longitude_fuzzy": -72.3628361,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [112.9827091, -7.7016409]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [-72.3628361, 11.3451287]
+    },
     "event_city": "Grati Satu",
     "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
     "event_duration": 2,
     "max_attendees": 10,
+    "spaces_free": 6,
     "attendees": [
       {
         "user_name": "abenettolo0"
@@ -50,19 +55,51 @@
     "last_name": "Janoch",
     "user_name": "jhaseldine1",
     "email": "ajanoch1@seattletimes.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-02T00:00:00.000Z",
     "event_location": "6799 Mandrake Place",
-    "latitude": 31.070643,
-    "longitude": 113.943274,
-    "latitude_fuzzy": 57.9936068,
-    "longitude_fuzzy": 16.3041503,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [113.943274, 31.070643]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [16.3041503, 57.9936068]
+    },
     "event_city": "Xiaogang",
     "event_description": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
     "event_duration": 3,
     "max_attendees": 10,
+    "spaces_free": 0,
     "attendees": [
       {
         "user_name": "sdoghartie0"
+      },
+      {
+        "user_name": "abenettolo0"
+      },
+      {
+        "user_name": "kkellog1"
+      },
+      {
+        "user_name": "bplum2"
+      },
+      {
+        "user_name": "mdavidavidovics3"
+      },
+      {
+        "user_name": "sdoghartie0"
+      },
+      {
+        "user_name": "abenettolo0"
+      },
+      {
+        "user_name": "kkellog1"
+      },
+      {
+        "user_name": "bplum2"
+      },
+      {
+        "user_name": "mdavidavidovics3"
       }
     ],
     "recipes": [
@@ -90,16 +127,21 @@
     "last_name": "Sphinxe",
     "user_name": "kfenck2",
     "email": "asphinxe2@cargocollective.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-03T00:00:00.000Z",
     "event_location": "88 5th Parkway",
-    "latitude": 24.937517,
-    "longitude": 114.455815,
-    "latitude_fuzzy": 23.1656982,
-    "longitude_fuzzy": 89.4990219,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [114.455815, 24.937517]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [89.4990219, 23.1656982]
+    },
     "event_city": "Longyuanba",
     "event_description": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
     "event_duration": 21,
     "max_attendees": 10,
+    "spaces_free": 10,
     "attendees": [],
     "recipes": [
       {
@@ -131,16 +173,21 @@
     "last_name": "Ditts",
     "user_name": "crediers3",
     "email": "tditts3@bloglovin.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-04T00:00:00.000Z",
     "event_location": "36165 Toban Road",
-    "latitude": 40.9331541,
-    "longitude": 72.9814877,
-    "latitude_fuzzy": 32.966667,
-    "longitude_fuzzy": -5.866667,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [72.9814877, 40.9331541]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [-5.866667, 32.966667]
+    },
     "event_city": "Jalal-Abad",
     "event_description": "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
     "event_duration": 9,
     "max_attendees": 10,
+    "spaces_free": 9,
     "attendees": [
       {
         "user_name": "afoord0"
@@ -155,16 +202,21 @@
     "last_name": "Sirkett",
     "user_name": "tkenrat4",
     "email": "dsirkett4@cbc.ca",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-05T00:00:00.000Z",
     "event_location": "0600 Kedzie Junction",
-    "latitude": 52.5713649,
-    "longitude": 39.5247021,
-    "latitude_fuzzy": 13.2648001,
-    "longitude_fuzzy": 123.4665442,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [39.5247021, 52.5713649]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [123.4665442, 13.2648001]
+    },
     "event_city": "Syrskoye",
     "event_description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
     "event_duration": 14,
     "max_attendees": 10,
+    "spaces_free": 8,
     "attendees": [
       {
         "user_name": "cmccarle0"
@@ -182,16 +234,21 @@
     "last_name": "Garling",
     "user_name": "awykey5",
     "email": "ngarling5@kickstarter.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-06T00:00:00.000Z",
     "event_location": "57231 Garrison Alley",
-    "latitude": -6.7523072,
-    "longitude": 106.0346285,
-    "latitude_fuzzy": 17.5165974,
-    "longitude_fuzzy": 104.0769024,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [106.0346285, -6.7523072]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [104.0769024, 17.5165974]
+    },
     "event_city": "Kadujajar",
     "event_description": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
     "event_duration": 13,
     "max_attendees": 10,
+    "spaces_free": 7,
     "attendees": [
       {
         "user_name": "ltopper0"
@@ -218,16 +275,21 @@
     "last_name": "Mepsted",
     "user_name": "mvanderkruys6",
     "email": "smepsted6@diigo.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-07T00:00:00.000Z",
     "event_location": "334 Bobwhite Place",
-    "latitude": 50.6859367,
-    "longitude": 38.1632353,
-    "latitude_fuzzy": 13.9802139,
-    "longitude_fuzzy": -14.8016887,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [38.1632353, 50.6859367]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [-14.8016887, 13.9802139]
+    },
     "event_city": "Krasnoye",
     "event_description": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.\n\nIn congue. Etiam justo. Etiam pretium iaculis justo.",
     "event_duration": 21,
     "max_attendees": 10,
+    "spaces_free": 5,
     "attendees": [
       {
         "user_name": "mlum0"
@@ -275,16 +337,21 @@
     "last_name": "Colleer",
     "user_name": "hfilan7",
     "email": "scolleer7@flickr.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-08T00:00:00.000Z",
     "event_location": "614 Ridge Oak Crossing",
-    "latitude": 33.8779889,
-    "longitude": 132.2526506,
-    "latitude_fuzzy": 49.7647258,
-    "longitude_fuzzy": 16.9050077,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [132.2526506, 33.8779889]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [16.9050077, 49.7647258]
+    },
     "event_city": "Aki",
     "event_description": "In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
     "event_duration": 10,
     "max_attendees": 10,
+    "spaces_free": 7,
     "attendees": [
       {
         "user_name": "dlangridge0"
@@ -321,16 +388,21 @@
     "last_name": "Brunel",
     "user_name": "fbalderston8",
     "email": "cbrunel8@naver.com",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-09T00:00:00.000Z",
     "event_location": "70 3rd Alley",
-    "latitude": 8.3141383,
-    "longitude": 124.8551784,
-    "latitude_fuzzy": 14.6654769,
-    "longitude_fuzzy": 121.0924228,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [124.8551784, 8.3141383]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [121.0924228, 14.6654769]
+    },
     "event_city": "Sankanan",
     "event_description": "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
     "event_duration": 1,
     "max_attendees": 10,
+    "spaces_free": 7,
     "attendees": [
       {
         "user_name": "rkiehl0"
@@ -351,16 +423,21 @@
     "last_name": "McGing",
     "user_name": "gvigours9",
     "email": "lmcging9@wikimedia.org",
-    "event_date": "3/2/2022",
+    "event_date": "2023-08-10T00:00:00.000Z",
     "event_location": "99753 Clove Pass",
-    "latitude": 54.4808396,
-    "longitude": 37.6941279,
-    "latitude_fuzzy": 51.0853063,
-    "longitude_fuzzy": 25.0109305,
+    "coordinate": {
+      "type": "Point",
+      "coordinates": [37.6941279, 54.4808396]
+    },
+    "coordinate_fuzzy": {
+      "type": "Point",
+      "coordinates": [25.0109305, 51.0853063]
+    },
     "event_city": "Yasnogorsk",
     "event_description": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
     "event_duration": 10,
     "max_attendees": 10,
+    "spaces_free": 7,
     "attendees": [
       {
         "user_name": "wtysall0"

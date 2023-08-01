@@ -1,4 +1,5 @@
 const { addUser } = require("../models/users-model");
+const { findUser } = require("../models/users-model");
 
 exports.postUser = (req, res, next) => {
   const {

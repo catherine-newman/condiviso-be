@@ -1,4 +1,6 @@
-const { addEvent, findEvent } = require("../models/events-model");
+const { addEvent } = require("../models/events-model");
+const { findEvent } = require("../models/events-model");
+const { findEvents } = require("../models/events-model");
 
 exports.postEvent = (req, res, next) => {
   const {
@@ -54,6 +56,17 @@ exports.getEvent = (req, res, next) => {
   findEvent(event_id)
     .then((data) => {
       res.status(200).send({ event: data });
+    })
+    .catch((err) => {
+      return next(err);
+    });
+};
+
+exports.getEvents = (req, res, next) => {
+  const { from_date, to_date, lon, lat, dist, unit, spaces } = req.query;
+  findEvents(from_date, to_date, lon, lat, dist, unit, spaces)
+    .then((data) => {
+      res.status(200).send({ events: data });
     })
     .catch((err) => {
       return next(err);
