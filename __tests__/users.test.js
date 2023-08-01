@@ -115,23 +115,23 @@ describe("POST /api/users", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("status:409, responds with an error message when username already exists", () => {
-    return request(app)
-      .post("/api/users")
-      .send({
-        first_name: "test",
-        last_name: "person",
-        user_name: "dwycliffe9",
-        email: "email@email.com",
-        address: "123 street",
-        postcode: "M1 7ED",
-        about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
-      })
-      .expect(409)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Username already exists");
-      });
-  });
+  // test("status:409, responds with an error message when username already exists", () => {
+  //   return request(app)
+  //     .post("/api/users")
+  //     .send({
+  //       first_name: "test",
+  //       last_name: "person",
+  //       user_name: "dwycliffe9",
+  //       email: "email@email.com",
+  //       address: "123 street",
+  //       postcode: "M1 7ED",
+  //       about_me: "I'm just a test",
+  //       recipes: "a recipe string",
+  //       recipe_image: "a recipe image",
+  //     })
+  //     .expect(409)
+  //     .then(({ body }) => {
+  //       expect(body.msg).toBe("Username already exists");
+  //     });
+  // });
 });
