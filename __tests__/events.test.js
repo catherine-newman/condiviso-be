@@ -528,4 +528,12 @@ describe("GET /api/events/", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
+  test("status:404 responds with an error message if no events were found", () => {
+    return request(app)
+      .get("/api/events?from_date=2024-08-23")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
 });

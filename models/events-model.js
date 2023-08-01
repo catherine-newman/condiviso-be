@@ -109,7 +109,7 @@ exports.findEvents = async (
 ) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const dateRegex = /^[0-9]{4}(\/|-)(1[0-2]|0?[1-9])(\/|-)(3[01]|[12][0-9]|0?[1-9])$/;
   const query = {};
   if (from_date) {
     if (!dateRegex.test(from_date)) {
@@ -169,5 +169,8 @@ exports.findEvents = async (
     .find(query)
     .sort({ event_date: 1 })
     .toArray();
+    if (result.length === 0) {
+      return Promise.reject({ status: 404, msg: "Not Found" });
+    }
   return result;
 };
