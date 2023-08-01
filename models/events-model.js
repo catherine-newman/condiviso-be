@@ -92,7 +92,6 @@ exports.findEvent = async (event_id) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
   const result = await eventsCollection.findOne({ _id: event_id });
-  console.log(result);
   if (!result) {
     return Promise.reject({ status: 404, msg: "Not Found" });
   }
