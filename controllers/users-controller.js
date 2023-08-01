@@ -35,9 +35,11 @@ exports.getUser = (req, res, next) => {
   const { user_id } = req.params;
   findUser(user_id)
     .then((data) => {
-      if(data === null) {
-        return Promise.reject({ status: 404, msg: "User not found"})
+   
+      if (!data) {
+        return Promise.reject({ status: 404, msg: "User not found" });
       }
+
       res.status(200).send(data);
     })
     .catch((err) => {
