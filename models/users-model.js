@@ -61,8 +61,14 @@ exports.addUser = async (
 };
 
 exports.findUser = (user_id) => {
+  if (!ObjectId.isValid(user_id)) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
+  let result;
   return connectToDatabase().then((client) => {
     const collection = client.db().collection("users");
     return collection.findOne({_id: user_id });
   });
 };
+
+

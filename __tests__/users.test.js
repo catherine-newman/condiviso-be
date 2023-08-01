@@ -235,3 +235,14 @@ describe('Error Handling 404', () => {
   });
 });
 
+describe('Error Handling 400', () => { 
+  test('Should return 400 status, should return an error when the id is invalid', () => { 
+    return request(app)
+    .get("/api/users/64c7abf68c2d17441844e71?")
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+  }); 
+});
