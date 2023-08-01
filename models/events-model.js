@@ -133,7 +133,6 @@ exports.findEvents = async (
     query.spaces_free.$gt = 0;
   }
   if (lat && lon) {
-    console.log(dist)
     const lonRegex =
       /^(\+|-)?(?:180(?:(?:\.0{1,7})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,7})?))$/;
     const latRegex =
