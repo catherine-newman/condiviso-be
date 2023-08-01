@@ -29,14 +29,15 @@ exports.addUser = async (
   try {
     const client = await connectToDatabase();
     const collection = client.db().collection("users");
-    findResult = await collection.findOne({ user_name: user_name });
+    lowerUserName = user_name.toLowerCase();
+    findResult = await collection.findOne({ user_name: lowerUserName });
     if (findResult) {
       return Promise.reject({ status: 409, msg: "Username already exists" });
     } else {
       const newUser = {
         first_name,
         last_name,
-        user_name,
+        user_name: lowerUserName,
         address,
         postcode,
         about_me,
