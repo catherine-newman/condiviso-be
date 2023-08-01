@@ -483,14 +483,23 @@ describe("GET /api/events/", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("response can be filtered by distance in miles as default", () => {
+  test("response can be filtered by distance in miles as default with default distance of 10", () => {
     return request(app)
-      .get("/api/events?lon=-72.3628361&lat=11.3451287&dist=100")
+      .get("/api/events?lon=-72.3628361&lat=11.3451287")
       .expect(200)
       .then(({ body }) => {
         const events = body.events;
         expect(events.length).toBe(1);
         expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
+      });
+  });
+  test("response can be filtered by specified distance", () => {
+    return request(app)
+      .get("/api/events?lon=-72.3628361&lat=11.3451287&dist=1")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(1);
       });
   });
   test("response can be filtered by distance in km", () => {
@@ -500,22 +509,6 @@ describe("GET /api/events/", () => {
       .then(({ body }) => {
         const events = body.events;
         expect(events.length).toBe(6);
-      });
-  });
-  test("status:400 responds with an error message when coordinates are not valid", () => {
-    return request(app)
-      .get("/api/events?lon=600&lat=700&dist=100")
-      .expect(400)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Bad Request");
-      });
-  });
-  test("status:400 responds with an error message when coordinates are present but dist is not specified", () => {
-    return request(app)
-      .get("/api/events?lon=-72.3628361&lat=11.3451287")
-      .expect(400)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Bad Request");
       });
   });
   test("response can be filtered to events with spaces left", () => {

@@ -103,7 +103,7 @@ exports.findEvents = async (
   to_date,
   lon,
   lat,
-  dist,
+  dist = 10,
   unit,
   spaces
 ) => {
@@ -133,9 +133,7 @@ exports.findEvents = async (
     query.spaces_free.$gt = 0;
   }
   if (lat && lon) {
-    if (!dist) {
-      return Promise.reject({ status: 400, msg: "Bad Request" });
-    }
+    console.log(dist)
     const lonRegex =
       /^(\+|-)?(?:180(?:(?:\.0{1,7})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,7})?))$/;
     const latRegex =
