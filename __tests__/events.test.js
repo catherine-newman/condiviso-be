@@ -359,3 +359,52 @@ describe("POST /api/events", () => {
       });
   });
 });
+
+describe("GET /api/events/", () => {
+  test("returns the event for the specified id", () => {
+    return request(app)
+      .get("/api/events/64c7b688411bcf756d6f0811")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.event).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
+        expect(body.event).toHaveProperty("first_name", "Sigismond");
+        expect(body.event).toHaveProperty("last_name", "Sainz");
+        expect(body.event).toHaveProperty("user_name", "murling0");
+        expect(body.event).toHaveProperty("email", "ssainz0@weebly.com");
+        expect(body.event).toHaveProperty("event_date", "3/2/2022");
+        expect(body.event).toHaveProperty(
+          "event_location",
+          "65231 Brentwood Avenue"
+        );
+        expect(body.event).toHaveProperty("latitude", -7.7016409);
+        expect(body.event).toHaveProperty("longitude", 112.9827091);
+        expect(body.event).toHaveProperty("latitude_fuzzy", 11.3451287);
+        expect(body.event).toHaveProperty("longitude_fuzzy", -72.3628361);
+        expect(body.event).toHaveProperty("event_city", "Grati Satu");
+        expect(body.event).toHaveProperty(
+          "event_description",
+          "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius."
+        );
+        expect(body.event).toHaveProperty("event_duration", 2);
+        expect(body.event).toHaveProperty("max_attendees", 10);
+        expect(body.event).toHaveProperty("attendees", expect.any(Array));
+        expect(body.event).toHaveProperty("recipes", expect.any(Array));
+      });
+  });
+  test("status:404 responds with an error message when there are no matches", () => {
+    return request(app)
+      .get("/api/events/64c89688411bcf745d6f0811")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
+  test("status:400 responds with an error message when id is not valid", () => {
+    return request(app)
+      .get("/api/events/testing")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+});

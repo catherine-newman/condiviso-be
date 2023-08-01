@@ -88,5 +88,42 @@
       "acknowledged": true,
       "insertedId": "56fc40f9d735c28df206d078"
     }
+  },
+  "GET /api/events/:event_id": {
+    "description": "serves the event for the specified id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {
+      "event": {
+        "event_name": "Honorable",
+        "first_name": "Sigismond",
+        "last_name": "Sainz",
+        "user_name": "murling0",
+        "email": "ssainz0@weebly.com",
+        "event_date": "3/2/2022",
+        "event_location": "65231 Brentwood Avenue",
+        "latitude": -7.7016409,
+        "longitude": 112.9827091,
+        "latitude_fuzzy": 11.3451287,
+        "longitude_fuzzy": -72.3628361,
+        "event_city": "Grati Satu",
+        "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
+        "event_duration": 2,
+        "max_attendees": 6,
+        "attendees": [
+          { "user_name": "abenettolo0" },
+          { "user_name": "kkellog1" },
+          { "user_name": "bplum2" },
+          { "user_name": "mdavidavidovics3" }
+        ],
+        "recipes": [
+          {
+            "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+            "recipe_name": "orci",
+            "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
+          }
+        ]
+      }
+    }
   }
 }
