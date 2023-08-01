@@ -59,3 +59,10 @@ exports.addUser = async (
     throw err;
   }
 };
+
+exports.findUser = (user_id) => {
+  return connectToDatabase().then((client) => {
+    const collection = client.db().collection("users");
+    return collection.findOne({_id: user_id });
+  });
+};

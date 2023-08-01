@@ -1,3 +1,5 @@
+
+
 const fs = require("fs/promises");
 const { connectToDatabase } = require("../connection");
 const seedDatabase = async () => {
@@ -23,4 +25,6 @@ const seedDatabase = async () => {
     console.error("Error seeding database:", error);
   }
 };
+
 module.exports = seedDatabase;
+
