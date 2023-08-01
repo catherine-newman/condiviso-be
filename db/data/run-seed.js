@@ -25,4 +25,6 @@ const seedDatabase = async () => {
     console.error("Error seeding database:", error);
   }
 };
+
 module.exports = seedDatabase;
+
