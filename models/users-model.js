@@ -1,6 +1,8 @@
 const { connectToDatabase } = require("../db/connection");
+const { ObjectId } = require("mongodb");
 
 exports.addUser = async (
+  _id,
   first_name,
   last_name,
   email,
@@ -8,9 +10,7 @@ exports.addUser = async (
   address,
   postcode,
   about_me,
-  recipes,
-  recipe_image
-) => {
+  recipes) => {
   if (
     !first_name ||
     !last_name ||
@@ -19,8 +19,7 @@ exports.addUser = async (
     !address ||
     !postcode ||
     !about_me ||
-    !recipes ||
-    !recipe_image
+    !recipes
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
   const emailRegex =
@@ -32,19 +31,26 @@ exports.addUser = async (
   try {
     const client = await connectToDatabase();
     const collection = client.db().collection("users");
-    findResult = await collection.findOne({ user_name: user_name });
+    lowerUserName = user_name.toLowerCase();
+    findResult = await collection.findOne({ user_name: lowerUserName });
     if (findResult) {
       return Promise.reject({ status: 409, msg: "Username already exists" });
     } else {
+      let newId;
+      if (_id) {
+        newId = new ObjectId(_id);
+      } else {
+        newId = new ObjectId();
+      }
       const newUser = {
+        _id: newId,
         first_name,
         last_name,
-        user_name,
+        user_name: lowerUserName,
         address,
         postcode,
         about_me,
-        recipes,
-        recipe_image,
+        recipes
       };
       return collection.insertOne(newUser);
     }
