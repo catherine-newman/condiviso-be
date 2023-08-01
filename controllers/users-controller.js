@@ -1,4 +1,4 @@
-const { addUser, findUser } = require("../models/users-model");
+const { addUser } = require("../models/users-model");
 
 exports.postUser = (req, res, next) => {
   const {
@@ -9,8 +9,7 @@ exports.postUser = (req, res, next) => {
     address,
     postcode,
     about_me,
-    recipes,
-    recipe_image,
+    recipes
   } = req.body;
   addUser(
     first_name,
@@ -20,8 +19,7 @@ exports.postUser = (req, res, next) => {
     address,
     postcode,
     about_me,
-    recipes,
-    recipe_image
+    recipes
   )
     .then((data) => {
       res.status(201).send({ result: data });

@@ -33,8 +33,7 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
+        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
       })
       .expect(201)
       .then(({ body }) => {
@@ -53,8 +52,7 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
+        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
       })
       .expect(201)
       .then(() => {
@@ -88,8 +86,7 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
+        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
       })
       .expect(400)
       .then(({ body }) => {
@@ -107,8 +104,7 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "sk13sdfff",
         about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
+        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
       })
       .expect(400)
       .then(({ body }) => {
@@ -126,8 +122,7 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: "a recipe string",
-        recipe_image: "a recipe image",
+        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
       })
       .expect(409)
       .then(({ body }) => {
