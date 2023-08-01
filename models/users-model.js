@@ -1,6 +1,8 @@
 const { connectToDatabase } = require("../db/connection");
+const { ObjectId } = require("mongodb");
 
 exports.addUser = async (
+  _id,
   first_name,
   last_name,
   email,
@@ -34,7 +36,14 @@ exports.addUser = async (
     if (findResult) {
       return Promise.reject({ status: 409, msg: "Username already exists" });
     } else {
+      let newId;
+      if (_id) {
+        newId = new ObjectId(_id);
+      } else {
+        newId = new ObjectId();
+      }
       const newUser = {
+        _id: newId,
         first_name,
         last_name,
         user_name: lowerUserName,

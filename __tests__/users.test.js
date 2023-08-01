@@ -3,6 +3,7 @@ const app = require("../app");
 const request = require("supertest");
 const { connectToDatabase, closeConnection } = require("../db/connection");
 const seedDatabase = require("../db/data/run-seed");
+const { ObjectId } = require("mongodb");
 
 let mongod;
 
@@ -26,6 +27,7 @@ describe("POST /api/users", () => {
     return request(app)
       .post("/api/users")
       .send({
+        _id: "64c7abf68c2d17441844e659",
         first_name: "test",
         last_name: "person",
         email: "email@email.com",
@@ -33,7 +35,43 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body.result).toHaveProperty("acknowledged", true);
+        expect(body.result).toHaveProperty(
+          "insertedId",
+          "64c7abf68c2d17441844e659"
+        );
+      });
+  });
+  test("adds the user even when _id is not provided", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        first_name: "test",
+        last_name: "person",
+        email: "email@email.com",
+        user_name: "testperson",
+        address: "123 street",
+        postcode: "M1 7ED",
+        about_me: "I'm just a test",
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
       })
       .expect(201)
       .then(({ body }) => {
@@ -45,6 +83,7 @@ describe("POST /api/users", () => {
     return request(app)
       .post("/api/users")
       .send({
+        _id: "64c7abf68c2d17441844e659",
         first_name: "test",
         last_name: "person",
         email: "email@email.com",
@@ -52,7 +91,14 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
       })
       .expect(201)
       .then(() => {
@@ -60,7 +106,7 @@ describe("POST /api/users", () => {
       })
       .then((client) => {
         const collection = client.db().collection("users");
-        return collection.findOne({ user_name: "testperson2" });
+        return collection.findOne({ _id: new ObjectId("64c7abf68c2d17441844e659") });
       })
       .then((findResult) => {
         expect(findResult).not.toBe(null);
@@ -86,7 +132,14 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
       })
       .expect(400)
       .then(({ body }) => {
@@ -104,7 +157,14 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "sk13sdfff",
         about_me: "I'm just a test",
-        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
       })
       .expect(400)
       .then(({ body }) => {
@@ -122,7 +182,14 @@ describe("POST /api/users", () => {
         address: "123 street",
         postcode: "M1 7ED",
         about_me: "I'm just a test",
-        recipes: [{"recipe_name":"aenean lectus","recipe_image":"http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio","recipe_content":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."}]
+        recipes: [
+          {
+            recipe_name: "aenean lectus",
+            recipe_image: "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            recipe_content:
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+          },
+        ],
       })
       .expect(409)
       .then(({ body }) => {

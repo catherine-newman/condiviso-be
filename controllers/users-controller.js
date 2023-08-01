@@ -2,6 +2,7 @@ const { addUser } = require("../models/users-model");
 
 exports.postUser = (req, res, next) => {
   const {
+    _id,
     first_name,
     last_name,
     email,
@@ -12,6 +13,7 @@ exports.postUser = (req, res, next) => {
     recipes
   } = req.body;
   addUser(
+    _id,
     first_name,
     last_name,
     email,
