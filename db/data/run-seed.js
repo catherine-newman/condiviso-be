@@ -17,6 +17,8 @@ const seedDatabase = async () => {
     const client = await connectToDatabase();
     const usersCollection = client.db().collection("users");
     const eventsCollection = client.db().collection("events");
+    await usersCollection.deleteMany();
+    await eventsCollection.deleteMany();
 
     await usersCollection.insertMany(usersData);
     await eventsCollection.insertMany(eventsData);

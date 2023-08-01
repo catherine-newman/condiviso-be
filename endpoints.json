@@ -38,8 +38,13 @@
       "address": "21 Pierstorff Hill",
       "postcode": "9680-423",
       "about_me": "mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
-      "recipes": "rhoncus aliquam",
-      "recipe_image": "http://dummyimage.com/219x100.png/cc0000/ffffff"
+      "recipes": [
+        {
+          "recipe_name": "aenean lectus",
+          "recipe_image": "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+          "recipe_content": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."
+        }
+      ]
     },
     "exampleResponse": {
       "acknowledged": true,
