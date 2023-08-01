@@ -5,18 +5,45 @@
     "format": "",
     "exampleResponse": {
       "endpoints": {
-        "GET /api/events": {
-          "description": "serves an array of all events",
+        "POST /api/users": {
+          "description": "adds a new user",
           "queries": [],
+          "format": {
+            "first_name": "Concettina",
+            "last_name": "Cantwell",
+            "email": "ccantwell0@facebook.com",
+            "user_name": "ccantwell0",
+            "address": "21 Pierstorff Hill",
+            "postcode": "9680-423",
+            "about_me": "mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
+            "recipes": "rhoncus aliquam",
+            "recipe_image": "http://dummyimage.com/219x100.png/cc0000/ffffff"
+          },
           "exampleResponse": {
-            "events": [
-              {
-                "CHANGES NEEDED": "CHANGES NEEDED"
-              }
-            ]
+            "acknowledged": true,
+            "insertedId": "56fc40f9d735c28df206d078"
           }
         }
       }
+    }
+  },
+  "POST /api/users": {
+    "description": "adds a new user",
+    "queries": [],
+    "format": {
+      "first_name": "Concettina",
+      "last_name": "Cantwell",
+      "email": "ccantwell0@facebook.com",
+      "user_name": "ccantwell0",
+      "address": "21 Pierstorff Hill",
+      "postcode": "9680-423",
+      "about_me": "mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
+      "recipes": "rhoncus aliquam",
+      "recipe_image": "http://dummyimage.com/219x100.png/cc0000/ffffff"
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "56fc40f9d735c28df206d078"
     }
   }
 }
