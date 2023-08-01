@@ -150,7 +150,7 @@ describe("GET /api/users/:_id", () => {
         expect(body).toHaveProperty("postcode")
         expect(body).toHaveProperty("about_me")
         expect(body).toHaveProperty("recipes")
-        expect(body._id).toBe("64c7abf68c2d17441844e6fd")
+        expect(body._id).toBe("64c7abf68c2d17441844e6fe")
         expect(Array.isArray(body.recipes)).toBe(true)
         body.recipes.forEach((recipe) => {
           expect(recipe).toHaveProperty("recipe_name")
@@ -162,7 +162,7 @@ describe("GET /api/users/:_id", () => {
 });
 
 describe('Error Handling 404', () => {
-  test.only('should return 404 status, should return an error when the user is not found', () => {
+  test('should return 404 status, should return an error when the user is not found', () => {
     return request(app)
     .get("/api/users/64c7abf68c2d17441844e711")
     .expect(404)
@@ -172,3 +172,4 @@ describe('Error Handling 404', () => {
     });
   });
 });
+
