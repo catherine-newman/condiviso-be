@@ -535,12 +535,4 @@ describe("GET /api/events/", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  // test("status:400 responds with an error message when id is not valid", () => {
-  //   return request(app)
-  //     .get("/api/events/testing")
-  //     .expect(400)
-  //     .then(({ body }) => {
-  //       expect(body.msg).toBe("Bad Request");
-  //     });
-  // });
 });
