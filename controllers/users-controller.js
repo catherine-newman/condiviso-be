@@ -30,3 +30,14 @@ exports.postUser = (req, res, next) => {
       return next(err);
     });
 };
+
+exports.getUser = (req, res, next) => {
+  const { user_id } = req.params;
+  findUser(user_id)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      return next(err);
+    });
+};
