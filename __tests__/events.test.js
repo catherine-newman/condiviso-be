@@ -193,6 +193,51 @@ describe("POST /api/events", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
+  test("status:400 returns an error if values of recipes are blank", () => {
+    return request(app)
+      .post("/api/events")
+      .send({
+        _id: "64c7b688411bcf756d6f0867",
+        event_name: "Honorable",
+        first_name: "Sigismond",
+        last_name: "Sainz",
+        user_name: "murling0",
+        email: "ssainz0@weebly.com",
+        event_date: "3/2/2022",
+        event_location: "65231 Brentwood Avenue",
+        latitude: -7.7016409,
+        longitude: 112.9827091,
+        latitude_fuzzy: 11.3451287,
+        longitude_fuzzy: -72.3628361,
+        event_city: "Grati Satu",
+        event_description: "Quisque porta volutpat erat. Quisque erat eros.",
+        event_duration: 2,
+        max_attendees: 6,
+        attendees: [
+          { user_name: "abenettolo0" },
+          { user_name: "kkellog1" },
+          { user_name: "bplum2" },
+          { user_name: "mdavidavidovics3" },
+        ],
+        recipes: [
+          {
+            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+            recipe_name: "orci",
+            recipe_content:
+              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+          },
+          {
+            recipe_image: "",
+            recipe_name: "",
+            recipe_content: "",
+          },
+        ],
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
   test("status:400 returns an error if event_duration is 0 or lower", () => {
     return request(app)
       .post("/api/events")
@@ -253,6 +298,46 @@ describe("POST /api/events", () => {
         event_description: "Quisque porta volutpat erat. Quisque erat eros.",
         event_duration: 1,
         max_attendees: -1,
+        attendees: [
+          { user_name: "abenettolo0" },
+          { user_name: "kkellog1" },
+          { user_name: "bplum2" },
+          { user_name: "mdavidavidovics3" },
+        ],
+        recipes: [
+          {
+            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+            recipe_name: "orci",
+            recipe_content:
+              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+          },
+        ],
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:400 returns an error if user_name is not in the database", () => {
+    return request(app)
+      .post("/api/events")
+      .send({
+        _id: "64c7b688411bcf756d6f0867",
+        event_name: "Honorable",
+        first_name: "Sigismond",
+        last_name: "Sainz",
+        user_name: "nonexistentusername",
+        email: "ssainz0@weebly.com",
+        event_date: "3/2/2022",
+        event_location: "65231 Brentwood Avenue",
+        latitude: -7.7016409,
+        longitude: 112.9827091,
+        latitude_fuzzy: 11.3451287,
+        longitude_fuzzy: -72.3628361,
+        event_city: "Grati Satu",
+        event_description: "Quisque porta volutpat erat. Quisque erat eros.",
+        event_duration: 1,
+        max_attendees: 7,
         attendees: [
           { user_name: "abenettolo0" },
           { user_name: "kkellog1" },

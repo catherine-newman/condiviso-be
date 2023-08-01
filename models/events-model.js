@@ -44,9 +44,19 @@ exports.addEvent = async (
   if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
+  for (const recipe of recipes) {
+    if (!recipe.recipe_name || !recipe.recipe_image || !recipe.recipe_content) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+  }
   try {
     const client = await connectToDatabase();
-    const collection = client.db().collection("events");
+    const eventsCollection = client.db().collection("events");
+    const usersCollection = client.db().collection("users");
+    findResult = await usersCollection.findOne({ user_name: user_name });
+    if (!findResult) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
     let newId;
     if (_id) {
       newId = new ObjectId(_id);
@@ -73,7 +83,7 @@ exports.addEvent = async (
       attendees,
       recipes,
     };
-    return collection.insertOne(newEvent);
+    return eventsCollection.insertOne(newEvent);
   } catch (err) {
     console.error("Error accessing the database:", err);
     throw err;
