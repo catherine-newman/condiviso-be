@@ -15,6 +15,7 @@
     "event_city": "Grati Satu",
     "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
     "event_duration": 2,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "abenettolo0"
@@ -58,6 +59,7 @@
     "event_city": "Xiaogang",
     "event_description": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
     "event_duration": 3,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "sdoghartie0"
@@ -97,6 +99,7 @@
     "event_city": "Longyuanba",
     "event_description": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
     "event_duration": 21,
+    "max_attendees": 10,
     "attendees": [],
     "recipes": [
       {
@@ -137,6 +140,7 @@
     "event_city": "Jalal-Abad",
     "event_description": "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
     "event_duration": 9,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "afoord0"
@@ -160,6 +164,7 @@
     "event_city": "Syrskoye",
     "event_description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
     "event_duration": 14,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "cmccarle0"
@@ -186,6 +191,7 @@
     "event_city": "Kadujajar",
     "event_description": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
     "event_duration": 13,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "ltopper0"
@@ -221,6 +227,7 @@
     "event_city": "Krasnoye",
     "event_description": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.\n\nIn congue. Etiam justo. Etiam pretium iaculis justo.",
     "event_duration": 21,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "mlum0"
@@ -277,6 +284,7 @@
     "event_city": "Aki",
     "event_description": "In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
     "event_duration": 10,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "dlangridge0"
@@ -322,6 +330,7 @@
     "event_city": "Sankanan",
     "event_description": "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
     "event_duration": 1,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "rkiehl0"
@@ -351,6 +360,7 @@
     "event_city": "Yasnogorsk",
     "event_description": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
     "event_duration": 10,
+    "max_attendees": 10,
     "attendees": [
       {
         "user_name": "wtysall0"

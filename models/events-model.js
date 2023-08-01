@@ -17,6 +17,7 @@ exports.addEvent = async (
   event_city,
   event_description,
   event_duration,
+  max_attendees,
   attendees,
   recipes
 ) => {
@@ -35,10 +36,14 @@ exports.addEvent = async (
     !event_city ||
     !event_description ||
     !event_duration ||
+    !max_attendees ||
     !attendees ||
     !recipes
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
+  if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
   try {
     const client = await connectToDatabase();
     const collection = client.db().collection("events");
@@ -64,6 +69,7 @@ exports.addEvent = async (
       event_city,
       event_description,
       event_duration,
+      max_attendees,
       attendees,
       recipes,
     };

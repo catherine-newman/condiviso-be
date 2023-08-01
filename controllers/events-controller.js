@@ -17,6 +17,7 @@ exports.postEvent = (req, res, next) => {
     event_city,
     event_description,
     event_duration,
+    max_attendees,
     attendees,
     recipes,
   } = req.body;
@@ -36,6 +37,7 @@ exports.postEvent = (req, res, next) => {
     event_city,
     event_description,
     event_duration,
+    max_attendees,
     attendees,
     recipes
   )
