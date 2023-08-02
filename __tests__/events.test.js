@@ -559,7 +559,7 @@ describe('PATCH /api/events/:_id', () => {
       expect(updatedEvent.event_duration).toBe(3)
     })
   }); 
-  test.only('404: Should return an error when the id is non-existent', () => { 
+  test('404: Should return an error when the id is non-existent', () => { 
     const patchBody = {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
@@ -575,8 +575,72 @@ describe('PATCH /api/events/:_id', () => {
       expect(body.msg).toBe("Event not found");
     })
   });
-});
+  test('400: Should return an error when the id is invalid', () => { 
+    const patchBody = {
+      event_name: "happy meal",
+      event_date: "2023-08-01T00:00:00.000Z",
+      event_description: "come get food",
+      event_duration: 3
+    }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f08?')
+    .send(patchBody)
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+  });
+  test('400: Should return an error when request body has malformed value for name field', () => { 
+   const patchBody = {
+    event_name: '%',
+    event_date: "2023-08-01T00:00:00.000Z",
+    event_description: "come get food",
+    event_duration: 3
+   }
+   return request(app)
+   .patch('/api/events/64c7b688411bcf756d6f0811')
+   .send(patchBody)
+   .expect(400)
+   .then(({body}) => {
+     expect(body).toHaveProperty("msg");
+     expect(body.msg).toBe("Bad Request");
+   })
+  });
+  test('400: Should return an error when request body has malformed value for date field', () => { 
+    const patchBody = {
+     event_name: 'h',
+     event_date: "2023-08-01T00:00:00.000Z%",
+     event_description: "come get food",
+     event_duration: 3
+    }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f0811')
+    .send(patchBody)
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+   });
+   test('400: Should return an error when request body has malformed value for duration field', () => { 
+    const patchBody = {
+     event_name: 'h',
+     event_date: "2023-08-01T00:00:00.000Z",
+     event_description: "come get food",
+     event_duration: 'j'
+    }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f0811')
+    .send(patchBody)
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+   });
+  });
 
-
+// non change patch
 
 
