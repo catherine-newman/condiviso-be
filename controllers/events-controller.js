@@ -79,6 +79,12 @@ exports.patchEvent = (req, res, next) => {
   const patchBody = req.body;
   updateEvent(_id, patchBody)
   .then((updatedEvent) => {
+    if(!updatedEvent) {
+      return Promise.reject({ status: 404, msg: "Event not found" });
+    }
     res.status(200).send({updatedEvent})
   })
+  .catch((err) => {
+    return next(err);
+  });
 }

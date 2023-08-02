@@ -539,7 +539,7 @@ describe("GET /api/events/", () => {
 });
 
 describe('PATCH /api/events/:_id', () => { 
-  test.only('Modifies some event details', () => { 
+  test('Modifies some event details', () => { 
     const patchBody = {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
@@ -559,4 +559,24 @@ describe('PATCH /api/events/:_id', () => {
       expect(updatedEvent.event_duration).toBe(3)
     })
   }); 
+  test.only('404: Should return an error when the id is non-existent', () => { 
+    const patchBody = {
+      event_name: "happy meal",
+      event_date: "2023-08-01T00:00:00.000Z",
+      event_description: "come get food",
+      event_duration: 3
+    }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f0899')
+    .send(patchBody)
+    .expect(404)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Event not found");
+    })
+  });
 });
+
+
+
+
