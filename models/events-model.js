@@ -7,9 +7,11 @@ exports.addEvent = async (
   first_name,
   last_name,
   user_name,
+  userid,
   email,
   event_date,
   event_location,
+  postcode,
   latitude,
   longitude,
   latitude_fuzzy,
@@ -26,9 +28,11 @@ exports.addEvent = async (
     !first_name ||
     !last_name ||
     !user_name ||
+    !userid ||
     !email ||
     !event_date ||
     !event_location ||
+    !postcode ||
     !latitude ||
     !longitude ||
     !latitude_fuzzy ||
@@ -41,43 +45,35 @@ exports.addEvent = async (
     !recipes
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
-  if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0) {
+    const postcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/;
+  if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0 || !postcodeRegex.test(postcode)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
-  }
-  for (const recipe of recipes) {
-    if (!recipe.recipe_name || !recipe.recipe_image || !recipe.recipe_content) {
-      return Promise.reject({ status: 400, msg: "Bad Request" });
-    }
   }
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
   const usersCollection = client.db().collection("users");
-  findResult = await usersCollection.findOne({ user_name: user_name });
+  findResult = await usersCollection.findOne({ _id: userid });
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
-  let newId;
-  if (_id) {
-    newId = new ObjectId(_id);
-  } else {
-    newId = new ObjectId();
-  }
   const newEvent = {
-    _id: newId,
+    _id: new ObjectId(_id),
     event_name,
     first_name,
     last_name,
     user_name,
+    userid,
     email,
     event_date: new Date(event_date),
     event_location,
+    postcode,
     coordinate: {type: "Point", "coordinates": [Number(longitude), Number(latitude)]},
     coordinate_fuzzy: {type: "Point", "coordinates": [Number(longitude_fuzzy), Number(latitude_fuzzy)]},
     event_city,
     event_description,
     event_duration: Number(event_duration),
     max_attendees: Number(max_attendees),
-    spaces_free: Number(max_attendees),
+    spaces_free: Number(max_attendees) - attendees.length,
     attendees,
     recipes,
   };
