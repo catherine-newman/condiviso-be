@@ -68,3 +68,43 @@ describe("GET /api/recipes/:recipe_id", () => {
       });
   });
 });
+
+describe("GET /api/recipes", ()=>{
+  test("should return all recipes", async ()=>{
+    const res = await request(app)
+    .get("/api/recipes")
+    .expect(200)
+    expect(res.body.recipes.length).toBe(10);
+    res.body.recipes.forEach(recipe =>{
+      expect(recipe).toHaveProperty('_id', expect.any(String));
+      expect(recipe).toHaveProperty('userid', expect.any(String));
+      expect(recipe).toHaveProperty('recipe_name', expect.any(String));
+      expect(recipe).toHaveProperty('recipe_ingredients', expect.any(String));
+      expect(recipe).toHaveProperty('recipe_content', expect.any(String));
+      expect(recipe).toHaveProperty('recipe_image', expect.any(String));
+
+    })
+  })
+  test('can filter recipes by user id',async ()=>{
+    const res = await request(app)
+    .get("/api/recipes?userid=64ca4d3dfc13ae0ef3089f7c")
+    .expect(200)
+    res.body.recipes.forEach(recipe =>{
+      expect(recipe).toHaveProperty('userid', '64ca4d3dfc13ae0ef3089f7c')
+    })
+  })
+
+  test('expect 404 when no recipe exists', async ()=>{
+    const res = await request(app)
+    .get("/api/recipes?userid=64ca62fffc13ae0edc08b303")
+    .expect(404)
+    expect(res.body.msg).toBe("Not Found")
+  })
+
+  test('expect 400 when userid is not valid', async ()=>{
+  const res = await request(app)
+  .get("/api/recipes?userid=notvalid")
+  .expect(400)
+  expect(res.body.msg).toBe("Bad Request")
+})
+})
