@@ -1,5 +1,5 @@
-const { addUser} = require("../models/users-model");
-const { updateUser} = require("../models/users-model");
+const { addUser } = require("../models/users-model");
+const { updateUser } = require("../models/users-model");
 const { findUser } = require("../models/users-model");
 
 exports.postUser = (req, res, next) => {
@@ -12,7 +12,7 @@ exports.postUser = (req, res, next) => {
     address,
     postcode,
     about_me,
-    recipes
+    recipes,
   } = req.body;
   addUser(
     _id,
@@ -33,29 +33,23 @@ exports.postUser = (req, res, next) => {
     });
 };
 
-
-
 exports.patchUser = (req, res, next) => {
-        const { _id } = req.params;
-        const updateData = req.body;
-        
-       
-    updateUser(_id, updateData)
-      .then((updatedUser) => {
-        res.status(200).send({user: updatedUser})
-      })
-      .catch((err) => {
-        return next(err)
-        })
-      }
-  
+  const { _id } = req.params;
+  const updateData = req.body;
 
+  updateUser(_id, updateData)
+    .then((updatedUser) => {
+      res.status(200).send({ user: updatedUser });
+    })
+    .catch((err) => {
+      return next(err);
+    });
+};
 
 exports.getUser = (req, res, next) => {
   const { user_id } = req.params;
   findUser(user_id)
     .then((data) => {
-   
       if (!data) {
         return Promise.reject({ status: 404, msg: "User not found" });
       }
