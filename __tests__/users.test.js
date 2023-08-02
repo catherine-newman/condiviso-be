@@ -171,7 +171,7 @@ describe("POST /api/users", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("status:409, responds with an error message when username already exists", () => {
+test("status:409, responds with an error message when username already exists", () => {
     return request(app)
       .post("/api/users")
       .send({
@@ -192,10 +192,101 @@ describe("POST /api/users", () => {
         ],
       })
       .expect(409)
+       .then(({ body }) => {
+         expect(body.msg).toBe("Username already exists");
+       });
+   });
+ });
+
+
+
+describe("PATCH /api/users/_id", () => {
+  test("status 200 , responds with an updated user", () => {
+  const updateData =
+   {
+    first_name: "Mac",
+  email: "marchelleu@businessinsider.com",
+  user_name: "murling888"
+  };
+   return request(app)
+  .patch("/api/users/64c7abf68c2d17441844e6fd")
+  .send(updateData)
+  .expect(200)
+  .then(({body}) => {
+    console.log(body, 'body')
+    const { user } = body;
+    expect(user.first_name).toBe("Mac")
+     expect(user.email).toBe("marchelleu@businessinsider.com");
+     expect(user.user_name).toBe("murling888");
+  });
+  });
+   test("status 400: Responds with message -'Bad request' when updateData has a missing key/malformed request ", () => {
+    const updateData = {
+ 
+      not_email: "marchelleu@businessinsider.com",
+      not_user_name: "murling888"
+      };
+        return request(app)
+      .patch("/api/users/64c7abf68c2d17441844e6fd")
+      .send(updateData)
+      .expect(400)
+      .then(({body}) => {
+        
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+    test("status 404 : Responds with message -'User not found' when user id is valid but does not exist", () => {
+      const updateData = {
+         not_email: "marchelleu@businessinsider.com",
+        not_user_name: "murling888"
+        };
+          return request(app)
+        .patch("/api/users/64c7abf68c2d17451844e6fd")
+        .send(updateData)
+        .expect(404)
+            .then(({body}) => {
+            expect(body.msg).toBe("User not found");
+      });
+  });
+  test("status:400, responds with an error message 'Bad request' when the email is invalid", () => {
+    const updateData = {
+      email: "awykey5google.nl",
+    address: "7 Lukken Crossing"
+     };
+       return request(app)
+     .patch("/api/users/64c7abf68c2d17441844e702")
+     .send(updateData)
+      .expect(400)
       .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:400, responds with an error message 'Bad request' when the postcode is invalid", () => {
+    const updateData = {
+      email: "fbalderston8@bing.co.uk",
+    postcode: "1"
+     };
+       return request(app)
+     .patch("/api/users/64c7abf68c2d17441844e705")
+     .send(updateData)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:409, responds with an error message when username already exists", () => {
+    const updateData = {
+          user_name: "kfenck2"
+     };
+       return request(app)
+     .patch("/api/users/64c7abf68c2d17441844e701")
+     .send(updateData)
+          .expect(409)
+    .then(({ body }) => {
         expect(body.msg).toBe("Username already exists");
       });
   });
+})
 });
 
 describe("GET /api/users/:_id", () => {
