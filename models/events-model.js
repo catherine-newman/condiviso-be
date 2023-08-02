@@ -173,3 +173,12 @@ exports.findEvents = async (
     }
   return result;
 };
+
+exports.updateEvent = (_id, patchBody) => {
+  return connectToDatabase().then((client) => {
+    const eventsCollection = client.db().collection("events");
+    return eventsCollection.findOne({ _id: _id }).then((result) => {
+      console.log('result: ', result.event_name);
+    })
+  })
+};

@@ -537,3 +537,22 @@ describe("GET /api/events/", () => {
       });
   });
 });
+
+// describe('PATCH /api/events/:_id', () => { 
+//   test.only('Modifies some event details', () => { 
+//     const patchBody = {
+//       event_name: "happy meal",
+//       event_date: "2023-08-01T00:00:00.000Z",
+//       event_description: "come get food",
+//       event_duration: 3
+//     }
+
+//     return request(app)
+//     .patch('/api/events/64c7b688411bcf756d6f0811')
+//     .send(patchBody)
+//     .expect(200)
+//     .then(({body}) => {
+//       console.log('body: ', body);
+//     })
+//   }); 
+// });
