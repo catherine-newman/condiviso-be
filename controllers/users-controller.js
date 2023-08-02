@@ -45,7 +45,6 @@ exports.patchUser = (req, res, next) => {
         res.status(200).send({user: updatedUser})
       })
       .catch((err) => {
-      console.log(  Object.keys(err), 'here')
         return next(err)
         })
       }
