@@ -59,9 +59,11 @@
       "first_name": "Sigismond",
       "last_name": "Sainz",
       "user_name": "murling0",
+      "userid": "64c7abf68c2d17441844e6fd",
       "email": "ssainz0@weebly.com",
-      "event_date": "2023/12/30",
+      "event_date": "2023-08-01T00:00:00.000Z",
       "event_location": "65231 Brentwood Avenue",
+      "postcode": "RM8 2EH",
       "latitude": -7.7016409,
       "longitude": 112.9827091,
       "latitude_fuzzy": 11.3451287,
@@ -76,13 +78,7 @@
         { "user_name": "bplum2" },
         { "user_name": "mdavidavidovics3" }
       ],
-      "recipes": [
-        {
-          "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-          "recipe_name": "orci",
-          "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
-        }
-      ]
+      "recipes": ["64ca4d3dfc13ae0ef3089f7b"]
     },
     "exampleResponse": {
       "acknowledged": true,
@@ -95,82 +91,66 @@
     "format": {},
     "exampleResponse": {
       "event": {
+        "_id": "64c7b688411bcf756d6f0811",
         "event_name": "Honorable",
         "first_name": "Sigismond",
         "last_name": "Sainz",
         "user_name": "murling0",
+        "userid": "64c7abf68c2d17441844e6fd",
         "email": "ssainz0@weebly.com",
         "event_date": "2023-08-01T00:00:00.000Z",
         "event_location": "65231 Brentwood Avenue",
-        "coordinate": {
-          "type": "Point",
-          "coordinates": [112.9827091, -7.7016409]
-        },
-        "coordinate_fuzzy": {
-          "type": "Point",
-          "coordinates": [-72.3628361, 11.3451287]
-        },
+        "postcode": "RM8 2EH",
+        "latitude": -7.7016409,
+        "longitude": 112.9827091,
+        "latitude_fuzzy": 11.3451287,
+        "longitude_fuzzy": -72.3628361,
         "event_city": "Grati Satu",
-        "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
+        "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
         "event_duration": 2,
-        "max_attendees": 10,
-        "spaces_free": 6,
+        "max_attendees": 6,
         "attendees": [
           { "user_name": "abenettolo0" },
           { "user_name": "kkellog1" },
           { "user_name": "bplum2" },
           { "user_name": "mdavidavidovics3" }
         ],
-        "recipes": [
-          {
-            "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            "recipe_name": "orci",
-            "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
-          }
-        ]
+        "recipes": ["64ca4d3dfc13ae0ef3089f7b"]
       }
     }
   },
   "GET /api/events": {
     "description": "serves all events",
-    "queries": ["spaces", "lon", "lat", "dist", "unit", "from_date", "to_date"],
+    "queries": ["spaces", "lon", "lat", "dist", "unit", "from_date", "to_date", "userid"],
     "format": {},
     "exampleResponse": {
       "events": [
         {
+          "_id": "64c7b688411bcf756d6f0811",
           "event_name": "Honorable",
           "first_name": "Sigismond",
           "last_name": "Sainz",
           "user_name": "murling0",
+          "userid": "64c7abf68c2d17441844e6fd",
           "email": "ssainz0@weebly.com",
           "event_date": "2023-08-01T00:00:00.000Z",
           "event_location": "65231 Brentwood Avenue",
-          "coordinate": {
-            "type": "Point",
-            "coordinates": [112.9827091, -7.7016409]
-          },
-          "coordinate_fuzzy": {
-            "type": "Point",
-            "coordinates": [-72.3628361, 11.3451287]
-          },
+          "postcode": "RM8 2EH",
+          "latitude": -7.7016409,
+          "longitude": 112.9827091,
+          "latitude_fuzzy": 11.3451287,
+          "longitude_fuzzy": -72.3628361,
           "event_city": "Grati Satu",
-          "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
+          "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
           "event_duration": 2,
-          "max_attendees": 10,
-          "spaces_free": 6,
+          "max_attendees": 6,
           "attendees": [
             { "user_name": "abenettolo0" },
             { "user_name": "kkellog1" },
             { "user_name": "bplum2" },
             { "user_name": "mdavidavidovics3" }
           ],
-          "recipes": [
-            {
-              "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-              "recipe_name": "orci",
-              "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
-            }
-          ]
+          "recipes": ["64ca4d3dfc13ae0ef3089f7b"]
         }
       ]
     }
