@@ -505,6 +505,32 @@ describe("GET /api/events/", () => {
         expect(body.msg).toBe("Not Found");
       });
   });
+  test("events can be filtered by userid", () => {
+    return request(app)
+      .get("/api/events?userid=64c7abf68c2d17441844e6fd")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(1);
+        expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
+      });
+  });
+  test("status:404 responds with an error message if userid does not exist", () => {
+    return request(app)
+      .get("/api/events?userid=64ca4d3dfc13ae0ef3089f7e")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
+  test("status:400 responds with an error message if userid is not valid", () => {
+    return request(app)
+      .get("/api/events?userid=booooo")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
 });
 
 describe('PATCH /api/events/:_id', () => { 

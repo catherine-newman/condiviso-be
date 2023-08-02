@@ -100,7 +100,8 @@ exports.findEvents = async (
   lat,
   dist = 10,
   unit,
-  spaces
+  spaces,
+  userid
 ) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
@@ -126,6 +127,13 @@ exports.findEvents = async (
     }
     query.spaces_free = query.spaces_left || {};
     query.spaces_free.$gt = 0;
+  }
+  if (userid) {
+    if (!ObjectId.isValid(userid)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    query.userid = query.userid || {};
+    query.userid = userid;
   }
   if (lat && lon) {
     const lonRegex =
