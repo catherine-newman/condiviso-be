@@ -5,10 +5,10 @@ require("dotenv").config({
   path: `${__dirname}/../.env.${ENV}`,
 });
 
-// if (!process.env.ATLAS_URI && !process.env.LOCAL_MONGODB_URI) {
-//   console.log(`${__dirname}/.env.${ENV}`);
-//   throw new Error("ATLAS_URI or LOCAL_MONGODB_URI not set");
-// }
+if (!process.env.ATLAS_URI && !process.env.LOCAL_MONGODB_URI) {
+  console.log(`${__dirname}/.env.${ENV}`);
+  throw new Error("ATLAS_URI or LOCAL_MONGODB_URI not set");
+}
 
 let client = null;
 
