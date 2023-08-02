@@ -30,3 +30,11 @@ exports.findRecipes = async (userid) => {
   }
   return result;
 };
+
+exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image) => {
+  client = await connectToDatabase();
+  collection = client.db().collection("recipes");
+  const newRecipe = {_id : new ObjectId(_id), userid, recipe_name, recipe_ingredients, recipe_content, recipe_image};
+  result = await collection.insertOne(newRecipe);
+  return result;
+}
