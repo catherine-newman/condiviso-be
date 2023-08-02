@@ -25,13 +25,13 @@ afterAll(async () => {
 describe("GET /api/recipes/:recipe_id", () => {
   test("returns the recipe for the specified id", () => {
     return request(app)
-      .get("/api/recipes/64ca3cc7fc13ae64a6af1850")
+      .get("/api/recipes/64ca4d3dfc13ae0ef3089f7b")
       .expect(200)
       .then(({ body }) => {
-        expect(body.recipe).toHaveProperty("_id", "64ca3cc7fc13ae64a6af1850");
+        expect(body.recipe).toHaveProperty("_id", "64ca4d3dfc13ae0ef3089f7b");
         expect(body.recipe).toHaveProperty(
           "userid",
-          "3jeea1c370ad24ohvltsgvzb"
+          "64ca4d3dfc13ae0ef3089f7c"
         );
         expect(body.recipe).toHaveProperty(
           "recipe_name",
