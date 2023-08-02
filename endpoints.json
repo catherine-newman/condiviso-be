@@ -101,19 +101,32 @@
         "event_date": "2023-08-01T00:00:00.000Z",
         "event_location": "65231 Brentwood Avenue",
         "postcode": "RM8 2EH",
-        "latitude": -7.7016409,
-        "longitude": 112.9827091,
-        "latitude_fuzzy": 11.3451287,
-        "longitude_fuzzy": -72.3628361,
+        "coordinate": {
+          "type": "Point",
+          "coordinates": [112.9827091, -7.7016409]
+        },
+        "coordinate_fuzzy": {
+          "type": "Point",
+          "coordinates": [-72.3628361, 11.3451287]
+        },
         "event_city": "Grati Satu",
-        "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
+        "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
         "event_duration": 2,
-        "max_attendees": 6,
+        "max_attendees": 10,
+        "spaces_free": 6,
         "attendees": [
-          { "user_name": "abenettolo0" },
-          { "user_name": "kkellog1" },
-          { "user_name": "bplum2" },
-          { "user_name": "mdavidavidovics3" }
+          {
+            "user_name": "abenettolo0"
+          },
+          {
+            "user_name": "kkellog1"
+          },
+          {
+            "user_name": "bplum2"
+          },
+          {
+            "user_name": "mdavidavidovics3"
+          }
         ],
         "recipes": ["64ca4d3dfc13ae0ef3089f7b"]
       }
@@ -136,19 +149,32 @@
           "event_date": "2023-08-01T00:00:00.000Z",
           "event_location": "65231 Brentwood Avenue",
           "postcode": "RM8 2EH",
-          "latitude": -7.7016409,
-          "longitude": 112.9827091,
-          "latitude_fuzzy": 11.3451287,
-          "longitude_fuzzy": -72.3628361,
+          "coordinate": {
+            "type": "Point",
+            "coordinates": [112.9827091, -7.7016409]
+          },
+          "coordinate_fuzzy": {
+            "type": "Point",
+            "coordinates": [-72.3628361, 11.3451287]
+          },
           "event_city": "Grati Satu",
-          "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
+          "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
           "event_duration": 2,
-          "max_attendees": 6,
+          "max_attendees": 10,
+          "spaces_free": 6,
           "attendees": [
-            { "user_name": "abenettolo0" },
-            { "user_name": "kkellog1" },
-            { "user_name": "bplum2" },
-            { "user_name": "mdavidavidovics3" }
+            {
+              "user_name": "abenettolo0"
+            },
+            {
+              "user_name": "kkellog1"
+            },
+            {
+              "user_name": "bplum2"
+            },
+            {
+              "user_name": "mdavidavidovics3"
+            }
           ],
           "recipes": ["64ca4d3dfc13ae0ef3089f7b"]
         }
