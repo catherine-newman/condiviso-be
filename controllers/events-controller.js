@@ -78,4 +78,7 @@ exports.patchEvent = (req, res, next) => {
   const {_id} = req.params;
   const patchBody = req.body;
   updateEvent(_id, patchBody)
+  .then((updatedEvent) => {
+    res.status(200).send({updatedEvent})
+  })
 }

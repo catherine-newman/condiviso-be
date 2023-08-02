@@ -175,10 +175,19 @@ exports.findEvents = async (
 };
 
 exports.updateEvent = (_id, patchBody) => {
+  const updateObj = {};
+if (patchBody.event_name) updateObj.event_name = patchBody.event_name;
+if (patchBody.event_date) updateObj.event_date = patchBody.event_date;
+if (patchBody.event_description) updateObj.event_description = patchBody.event_description;
+if (patchBody.event_duration) updateObj.event_duration = patchBody.event_duration;
+
+
   return connectToDatabase().then((client) => {
     const eventsCollection = client.db().collection("events");
-    return eventsCollection.findOne({ _id: _id }).then((result) => {
-      console.log('result: ', result.event_name);
+    return eventsCollection.updateOne({ _id: _id }, {$set: updateObj}).then(() => {
+      const updateEvent = eventsCollection.findOne({ _id: _id })
+      return updateEvent
+
     })
   })
 };
