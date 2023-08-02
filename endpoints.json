@@ -38,12 +38,141 @@
       "address": "21 Pierstorff Hill",
       "postcode": "9680-423",
       "about_me": "mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
-      "recipes": "rhoncus aliquam",
-      "recipe_image": "http://dummyimage.com/219x100.png/cc0000/ffffff"
+      "recipes": [
+        {
+          "recipe_name": "aenean lectus",
+          "recipe_image": "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+          "recipe_content": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."
+        }
+      ]
     },
     "exampleResponse": {
       "acknowledged": true,
       "insertedId": "56fc40f9d735c28df206d078"
+    }
+  },
+  "POST /api/events": {
+    "description": "adds a new event",
+    "queries": [],
+    "format": {
+      "event_name": "Honorable",
+      "first_name": "Sigismond",
+      "last_name": "Sainz",
+      "user_name": "murling0",
+      "email": "ssainz0@weebly.com",
+      "event_date": "2023/12/30",
+      "event_location": "65231 Brentwood Avenue",
+      "latitude": -7.7016409,
+      "longitude": 112.9827091,
+      "latitude_fuzzy": 11.3451287,
+      "longitude_fuzzy": -72.3628361,
+      "event_city": "Grati Satu",
+      "event_description": "Quisque porta volutpat erat. Quisque erat eros.",
+      "event_duration": 2,
+      "max_attendees": 6,
+      "attendees": [
+        { "user_name": "abenettolo0" },
+        { "user_name": "kkellog1" },
+        { "user_name": "bplum2" },
+        { "user_name": "mdavidavidovics3" }
+      ],
+      "recipes": [
+        {
+          "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+          "recipe_name": "orci",
+          "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
+        }
+      ]
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "56fc40f9d735c28df206d078"
+    }
+  },
+  "GET /api/events/:event_id": {
+    "description": "serves the event for the specified id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {
+      "event": {
+        "event_name": "Honorable",
+        "first_name": "Sigismond",
+        "last_name": "Sainz",
+        "user_name": "murling0",
+        "email": "ssainz0@weebly.com",
+        "event_date": "2023-08-01T00:00:00.000Z",
+        "event_location": "65231 Brentwood Avenue",
+        "coordinate": {
+          "type": "Point",
+          "coordinates": [112.9827091, -7.7016409]
+        },
+        "coordinate_fuzzy": {
+          "type": "Point",
+          "coordinates": [-72.3628361, 11.3451287]
+        },
+        "event_city": "Grati Satu",
+        "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
+        "event_duration": 2,
+        "max_attendees": 10,
+        "spaces_free": 6,
+        "attendees": [
+          { "user_name": "abenettolo0" },
+          { "user_name": "kkellog1" },
+          { "user_name": "bplum2" },
+          { "user_name": "mdavidavidovics3" }
+        ],
+        "recipes": [
+          {
+            "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+            "recipe_name": "orci",
+            "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
+          }
+        ]
+      }
+    }
+  },
+  "GET /api/events": {
+    "description": "serves all events",
+    "queries": ["spaces", "lon", "lat", "dist", "unit", "from_date", "to_date"],
+    "format": {},
+    "exampleResponse": {
+      "events": [
+        {
+          "event_name": "Honorable",
+          "first_name": "Sigismond",
+          "last_name": "Sainz",
+          "user_name": "murling0",
+          "email": "ssainz0@weebly.com",
+          "event_date": "2023-08-01T00:00:00.000Z",
+          "event_location": "65231 Brentwood Avenue",
+          "coordinate": {
+            "type": "Point",
+            "coordinates": [112.9827091, -7.7016409]
+          },
+          "coordinate_fuzzy": {
+            "type": "Point",
+            "coordinates": [-72.3628361, 11.3451287]
+          },
+          "event_city": "Grati Satu",
+          "event_description": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
+          "event_duration": 2,
+          "max_attendees": 10,
+          "spaces_free": 6,
+          "attendees": [
+            { "user_name": "abenettolo0" },
+            { "user_name": "kkellog1" },
+            { "user_name": "bplum2" },
+            { "user_name": "mdavidavidovics3" }
+          ],
+          "recipes": [
+            {
+              "recipe_image": "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
+              "recipe_name": "orci",
+              "recipe_content": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
+            }
+          ]
+        }
+      ]
     }
   }
 }
