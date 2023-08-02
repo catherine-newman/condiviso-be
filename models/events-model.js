@@ -191,7 +191,10 @@ if (patchBody.event_name) updateObj.event_name = patchBody.event_name;
 if (patchBody.event_date) updateObj.event_date = new Date(patchBody.event_date);
 if (patchBody.event_description) updateObj.event_description = patchBody.event_description;
 if (patchBody.event_duration) updateObj.event_duration = Number(patchBody.event_duration);
-if (patchBody.attendees) updateObj.attendees = patchBody.attendees;
+if (patchBody.attendees) {
+  updateObj.attendees = patchBody.attendees;
+  updateObj.spaces_free = patchBody.max_attendees - patchBody.attendees.length;
+}
 
 
   return connectToDatabase().then((client) => {

@@ -549,7 +549,8 @@ describe('PATCH /api/events/:_id', () => {
         { "user_name": "anakin" },
         { "user_name": "obi" },
         { "user_name": "quigon" }
-     ]
+     ],
+     max_attendees: 10
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
@@ -566,6 +567,7 @@ describe('PATCH /api/events/:_id', () => {
          { "user_name": "obi" },
          { "user_name": "quigon" }
       ])
+      expect(updatedEvent.spaces_free).toBe(7)
     })
   }); 
   test('404: Should return an error when the id is non-existent', () => { 
