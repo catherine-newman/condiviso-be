@@ -173,3 +173,32 @@ exports.findEvents = async (
     }
   return result;
 };
+
+exports.updateEvent = (_id, patchBody) => {
+  const letterRegex = /^[0-9A-Za-z\s\.,!?()-]*$/;
+  const dateRegex = /^[0-9A-Za-z\:.-]*$/;
+ 
+
+  if(!patchBody.event_name.match(letterRegex) || !patchBody.event_date.match(dateRegex) || isNaN(patchBody.event_duration)) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
+
+  if (!ObjectId.isValid(_id)) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
+  const updateObj = {};
+if (patchBody.event_name) updateObj.event_name = patchBody.event_name;
+if (patchBody.event_date) updateObj.event_date = patchBody.event_date;
+if (patchBody.event_description) updateObj.event_description = patchBody.event_description;
+if (patchBody.event_duration) updateObj.event_duration = patchBody.event_duration;
+
+
+  return connectToDatabase().then((client) => {
+    const eventsCollection = client.db().collection("events");
+    return eventsCollection.updateOne({ _id: _id }, {$set: updateObj}).then(() => {
+      const updateEvent = eventsCollection.findOne({ _id: _id })
+      return updateEvent
+
+    })
+  })
+};

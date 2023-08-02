@@ -1,6 +1,7 @@
 const { addEvent } = require("../models/events-model");
 const { findEvent } = require("../models/events-model");
 const { findEvents } = require("../models/events-model");
+const { updateEvent } = require("../models/events-model")
 
 exports.postEvent = (req, res, next) => {
   const {
@@ -72,3 +73,18 @@ exports.getEvents = (req, res, next) => {
       return next(err);
     });
 };
+
+exports.patchEvent = (req, res, next) => {
+  const {_id} = req.params;
+  const patchBody = req.body;
+  updateEvent(_id, patchBody)
+  .then((updatedEvent) => {
+    if(!updatedEvent) {
+      return Promise.reject({ status: 404, msg: "Event not found" });
+    }
+    res.status(200).send({updatedEvent})
+  })
+  .catch((err) => {
+    return next(err);
+  });
+}
