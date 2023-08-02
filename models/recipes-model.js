@@ -30,3 +30,24 @@ exports.findRecipes = async (userid) => {
   }
   return result;
 };
+
+exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image) => {
+  if (!userid ||
+    !recipe_name ||
+    !recipe_ingredients ||
+    !recipe_content ||
+    !recipe_image
+    ) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+  client = await connectToDatabase();
+  recipesCollection = client.db().collection("recipes");
+  usersCollection = client.db().collection("users");
+  const findResult = await usersCollection.findOne({ _id : userid});
+  if (!findResult) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
+  const newRecipe = {_id : new ObjectId(_id), userid, recipe_name, recipe_ingredients, recipe_content, recipe_image};
+  result = await recipesCollection.insertOne(newRecipe);
+  return result;
+}

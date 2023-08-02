@@ -108,3 +108,92 @@ describe("GET /api/recipes", ()=>{
   expect(res.body.msg).toBe("Bad Request")
 })
 })
+
+
+describe("POST /api/recipes", () => {
+  test("acknowledges the post request and returns an id", () => {
+    return request(app)
+      .post("/api/recipes")
+      .send({
+        _id: "64ca62fffc13ae0edc08b303",
+        userid: "64c7abf68c2d17441844e6fd",
+        recipe_name: "tomato soup",
+        recipe_ingredients: "catfish",
+        recipe_content: "mix it up",
+        recipe_image: "http://dummyimage.com/186x100.png/cc0000/ffffff"
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body.result).toHaveProperty("acknowledged", true);
+        expect(body.result).toHaveProperty(
+          "insertedId",
+          "64ca62fffc13ae0edc08b303"
+        );
+      });
+  });
+  test("adds a new event", () => {
+    return request(app)
+      .post("/api/recipes")
+      .send({
+        _id: "64ca62fffc13ae0edc08b303",
+        userid: "64c7abf68c2d17441844e6fd",
+        recipe_name: "tomato soup",
+        recipe_ingredients: "catfish",
+        recipe_content: "mix it up",
+        recipe_image: "http://dummyimage.com/186x100.png/cc0000/ffffff"
+      })
+      .expect(201)
+      .then(() => {
+        return connectToDatabase();
+      })
+      .then((client) => {
+        const collection = client.db().collection("recipes");
+        return collection.findOne({
+          _id: new ObjectId("64ca62fffc13ae0edc08b303"),
+        });
+      })
+      .then((findResult) => {
+        expect(findResult).not.toBe(null);
+      });
+  });
+  test("status:400, responds with an error message when the request is missing data", () => {
+    return request(app)
+      .post("/api/recipes")
+      .send({})
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("adds a recipe when _id is not provided", () => {
+    return request(app)
+      .post("/api/recipes")
+      .send({
+        userid: "64c7abf68c2d17441844e6fd",
+        recipe_name: "tomato soup",
+        recipe_ingredients: "catfish",
+        recipe_content: "mix it up",
+        recipe_image: "http://dummyimage.com/186x100.png/cc0000/ffffff"
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body.result).toHaveProperty("acknowledged", true);
+        expect(body.result).toHaveProperty("insertedId", expect.any(String));
+      });
+  });
+  test("status:400 returns an error if userid is not in the database", () => {
+    return request(app)
+      .post("/api/recipes")
+      .send({
+        userid: "64ca8547fc13ae0edc08b319",
+        recipe_name: "tomato soup",
+        recipe_ingredients: "catfish",
+        recipe_content: "mix it up",
+        recipe_image: "http://dummyimage.com/186x100.png/cc0000/ffffff"
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+});
