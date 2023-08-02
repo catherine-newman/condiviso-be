@@ -30,7 +30,6 @@ exports.addUser = async (
   }
   try {
     const client = await connectToDatabase(); 
-    console.log(client)
     const collection = client.db().collection("users");
     lowerUserName = user_name.toLowerCase();
     findResult = await collection.findOne({ user_name: lowerUserName });

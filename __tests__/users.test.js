@@ -213,7 +213,6 @@ describe("PATCH /api/users/_id", () => {
   .send(updateData)
   .expect(200)
   .then(({body}) => {
-    console.log(body, 'body')
     const { user } = body;
     expect(user.first_name).toBe("Mac")
      expect(user.email).toBe("marchelleu@businessinsider.com");
@@ -286,7 +285,6 @@ describe("PATCH /api/users/_id", () => {
         expect(body.msg).toBe("Username already exists");
       });
   });
-})
 });
 
 describe("GET /api/users/:_id", () => {
