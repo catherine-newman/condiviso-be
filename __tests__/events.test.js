@@ -544,9 +544,14 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ],
+     max_attendees: 10
     }
-
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
     .send(patchBody)
@@ -557,6 +562,12 @@ describe('PATCH /api/events/:_id', () => {
       expect(updatedEvent.event_date).toBe("2023-08-01T00:00:00.000Z")
       expect(updatedEvent.event_description).toBe( "come get food")
       expect(updatedEvent.event_duration).toBe(3)
+      expect(updatedEvent.attendees).toEqual([
+         { "user_name": "anakin"},
+         { "user_name": "obi" },
+         { "user_name": "quigon" }
+      ])
+      expect(updatedEvent.spaces_free).toBe(7)
     })
   }); 
   test('404: Should return an error when the id is non-existent', () => { 
@@ -564,7 +575,12 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0899')
@@ -580,7 +596,12 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f08?')
@@ -596,7 +617,12 @@ describe('PATCH /api/events/:_id', () => {
     event_name: '%',
     event_date: "2023-08-01T00:00:00.000Z",
     event_description: "come get food",
-    event_duration: 3
+    event_duration: 3,
+    attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
    }
    return request(app)
    .patch('/api/events/64c7b688411bcf756d6f0811')
@@ -612,7 +638,12 @@ describe('PATCH /api/events/:_id', () => {
      event_name: 'h',
      event_date: "2023-08-01T00:00:00.000Z%",
      event_description: "come get food",
-     event_duration: 3
+     event_duration: 3,
+     attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
@@ -628,8 +659,34 @@ describe('PATCH /api/events/:_id', () => {
      event_name: 'h',
      event_date: "2023-08-01T00:00:00.000Z",
      event_description: "come get food",
-     event_duration: 'j'
+     event_duration: 'j',
+     attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
     }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f0811')
+    .send(patchBody)
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+   });
+   test('400: Should return an error when request body has malformed value for attendees field', () => { 
+    const patchBody = {
+     event_name: 'h',
+     event_date: "2023-08-01T00:00:00.000Z",
+     event_description: "come get food",
+     event_duration: 2,
+     attendees: { 
+      "user_name": "anakin" ,
+       "user_name": "obi" ,
+      "user_name": "quigon"
+    }
+  }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
     .send(patchBody)
@@ -641,6 +698,6 @@ describe('PATCH /api/events/:_id', () => {
    });
   });
 
-// non change patch
+
 
 

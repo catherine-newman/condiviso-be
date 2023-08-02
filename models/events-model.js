@@ -179,7 +179,7 @@ exports.updateEvent = (_id, patchBody) => {
   const dateRegex = /^[0-9A-Za-z\:.-]*$/;
  
 
-  if(!patchBody.event_name.match(letterRegex) || !patchBody.event_date.match(dateRegex) || isNaN(patchBody.event_duration)) {
+  if(!patchBody.event_name.match(letterRegex) || !patchBody.event_date.match(dateRegex) || isNaN(patchBody.event_duration) || !Array.isArray(patchBody.attendees)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
 
@@ -188,9 +188,13 @@ exports.updateEvent = (_id, patchBody) => {
   }
   const updateObj = {};
 if (patchBody.event_name) updateObj.event_name = patchBody.event_name;
-if (patchBody.event_date) updateObj.event_date = patchBody.event_date;
+if (patchBody.event_date) updateObj.event_date = new Date(patchBody.event_date);
 if (patchBody.event_description) updateObj.event_description = patchBody.event_description;
-if (patchBody.event_duration) updateObj.event_duration = patchBody.event_duration;
+if (patchBody.event_duration) updateObj.event_duration = Number(patchBody.event_duration);
+if (patchBody.attendees) {
+  updateObj.attendees = patchBody.attendees;
+  updateObj.spaces_free = patchBody.max_attendees - patchBody.attendees.length;
+}
 
 
   return connectToDatabase().then((client) => {
