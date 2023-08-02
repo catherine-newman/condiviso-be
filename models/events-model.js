@@ -97,3 +97,80 @@ exports.findEvent = async (event_id) => {
   }
   return result;
 };
+
+exports.findEvents = async (
+  from_date,
+  to_date,
+  lon,
+  lat,
+  dist = 10,
+  unit,
+  spaces
+) => {
+  const client = await connectToDatabase();
+  const eventsCollection = client.db().collection("events");
+  const dateRegex = /^[0-9]{4}(\/|-)(1[0-2]|0?[1-9])(\/|-)(3[01]|[12][0-9]|0?[1-9])$/;
+  const query = {};
+  if (from_date) {
+    if (!dateRegex.test(from_date)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    query.event_date = query.event_date || {};
+    query.event_date.$gte = new Date(from_date).toISOString();
+  }
+  if (to_date) {
+    if (!dateRegex.test(to_date)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    query.event_date = query.event_date || {};
+    query.event_date.$lte = new Date(to_date).toISOString();
+  }
+  if (spaces) {
+    if (spaces !== "true") {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    query.spaces_free = query.spaces_left || {};
+    query.spaces_free.$gt = 0;
+  }
+  if (lat && lon) {
+    const lonRegex =
+      /^(\+|-)?(?:180(?:(?:\.0{1,7})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,7})?))$/;
+    const latRegex =
+      /^(\+|-)?(?:90(?:(?:\.0{1,7})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,7})?))$/;
+    if (!lonRegex.test(lon) || !latRegex.test(lat)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    let distMult = 3959;
+    if (unit === "k") {
+      distMult = 6371;
+    }
+    await eventsCollection.createIndex({ coordinate_fuzzy: "2dsphere" });
+    const result = await eventsCollection
+      .aggregate([
+        {
+          $geoNear: {
+            near: {
+              type: "Point",
+              coordinates: [Number(lon), Number(lat)],
+            },
+            distanceField: "distance",
+            maxDistance: Number(dist),
+            spherical: true,
+            distanceMultiplier: distMult,
+          },
+        },
+        { $match: query },
+      ])
+      .sort({ event_date: 1 })
+      .toArray();
+    return result;
+  }
+  const result = await eventsCollection
+    .find(query)
+    .sort({ event_date: 1 })
+    .toArray();
+    if (result.length === 0) {
+      return Promise.reject({ status: 404, msg: "Not Found" });
+    }
+  return result;
+};

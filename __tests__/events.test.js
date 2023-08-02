@@ -360,7 +360,7 @@ describe("POST /api/events", () => {
   });
 });
 
-describe("GET /api/events/", () => {
+describe("GET /api/events/:event_id", () => {
   test("returns the event for the specified id", () => {
     return request(app)
       .get("/api/events/64c7b688411bcf756d6f0811")
@@ -371,15 +371,19 @@ describe("GET /api/events/", () => {
         expect(body.event).toHaveProperty("last_name", "Sainz");
         expect(body.event).toHaveProperty("user_name", "murling0");
         expect(body.event).toHaveProperty("email", "ssainz0@weebly.com");
-        expect(body.event).toHaveProperty("event_date", "3/2/2022");
+        expect(body.event).toHaveProperty(
+          "event_date",
+          "2023-08-01T00:00:00.000Z"
+        );
         expect(body.event).toHaveProperty(
           "event_location",
           "65231 Brentwood Avenue"
         );
-        expect(body.event).toHaveProperty("latitude", -7.7016409);
-        expect(body.event).toHaveProperty("longitude", 112.9827091);
-        expect(body.event).toHaveProperty("latitude_fuzzy", 11.3451287);
-        expect(body.event).toHaveProperty("longitude_fuzzy", -72.3628361);
+        expect(body.event).toHaveProperty("coordinate", expect.any(Object));
+        expect(body.event).toHaveProperty(
+          "coordinate_fuzzy",
+          expect.any(Object)
+        );
         expect(body.event).toHaveProperty("event_city", "Grati Satu");
         expect(body.event).toHaveProperty(
           "event_description",
@@ -405,6 +409,131 @@ describe("GET /api/events/", () => {
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Bad Request");
+      });
+  });
+});
+
+describe("GET /api/events/", () => {
+  test("serves all events", () => {
+    return request(app)
+      .get("/api/events")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(10);
+        events.forEach((event) => {
+          expect(event).toHaveProperty("_id", expect.any(String));
+          expect(event).toHaveProperty("first_name", expect.any(String));
+          expect(event).toHaveProperty("last_name", expect.any(String));
+          expect(event).toHaveProperty("user_name", expect.any(String));
+          expect(event).toHaveProperty("email", expect.any(String));
+          expect(event).toHaveProperty("event_date", expect.any(String));
+          expect(event).toHaveProperty("event_location", expect.any(String));
+          expect(event).toHaveProperty("coordinate", expect.any(Object));
+          expect(event).toHaveProperty("coordinate_fuzzy", expect.any(Object));
+          expect(event).toHaveProperty("event_city", expect.any(String));
+          expect(event).toHaveProperty("event_description", expect.any(String));
+          expect(event).toHaveProperty("event_duration", expect.any(Number));
+          expect(event).toHaveProperty("max_attendees", expect.any(Number));
+          expect(event).toHaveProperty("attendees", expect.any(Array));
+          expect(event).toHaveProperty("recipes", expect.any(Array));
+        });
+      });
+  });
+  test("events are sorted by date in descending order as default", () => {
+    return request(app)
+      .get("/api/events")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.events).toBeSortedBy("event_date");
+      });
+  });
+  test("events can be filtered by date starting from a day", () => {
+    return request(app)
+      .get("/api/events?from_date=2023-08-03")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(8);
+      });
+  });
+  test("status:400 responds with an error message when from_date is not valid", () => {
+    return request(app)
+      .get("/api/events?from_date=boo")
+      .expect(400)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("events can be filtered by date until a day", () => {
+    return request(app)
+      .get("/api/events?to_date=2023-08-07")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(7);
+      });
+  });
+  test("status:400 responds with an error message when to_date is not valid", () => {
+    return request(app)
+      .get("/api/events?to_date=boo")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("response can be filtered by distance in miles as default with default distance of 10", () => {
+    return request(app)
+      .get("/api/events?lon=-72.3628361&lat=11.3451287")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(1);
+        expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
+      });
+  });
+  test("response can be filtered by specified distance", () => {
+    return request(app)
+      .get("/api/events?lon=-72.3628361&lat=11.3451287&dist=1")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(1);
+      });
+  });
+  test("response can be filtered by distance in km", () => {
+    return request(app)
+      .get("/api/events?lon=-72.3628361&lat=11.3451287&dist=10000000&unit=k")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(6);
+      });
+  });
+  test("response can be filtered to events with spaces left", () => {
+    return request(app)
+      .get("/api/events?spaces=true")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(9);
+      });
+  });
+  test("status:400 responds with an error message if spaces does not equal true when queried", () => {
+    return request(app)
+      .get("/api/events?spaces=tgdfg")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:404 responds with an error message if no events were found", () => {
+    return request(app)
+      .get("/api/events?from_date=2024-08-23")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
       });
   });
 });
