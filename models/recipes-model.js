@@ -6,7 +6,7 @@ exports.findRecipe = async (recipe_id) => {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
   const client = await connectToDatabase();
-  const collection = client.db().collection("recipes");
+  const collection = client.db("condiviso").collection("recipes");
   const result = await collection.findOne({ _id: recipe_id });
   if (!result) {
     return Promise.reject({ status: 404, msg: "Not Found" });
@@ -16,7 +16,7 @@ exports.findRecipe = async (recipe_id) => {
 
 exports.findRecipes = async (user_id) => {
   const client = await connectToDatabase();
-  const collection = client.db().collection("recipes");
+  const collection = client.db("condiviso").collection("recipes");
   let result;
   if(user_id) {
    if(!ObjectId.isValid(user_id)) {
@@ -41,8 +41,8 @@ exports.addRecipe = async (_id, user_id, recipe_name, recipe_ingredients, recipe
       return Promise.reject({ status: 400, msg: "Bad Request" });
     }
   const client = await connectToDatabase();
-  const recipesCollection = client.db().collection("recipes");
-  const usersCollection = client.db().collection("users");
+  const recipesCollection = client.db("condiviso").collection("recipes");
+  const usersCollection = client.db("condiviso").collection("users");
   const findResult = await usersCollection.findOne({ _id : user_id});
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
@@ -58,7 +58,7 @@ exports.updateRecipe = async ( recipe_name,recipe_ingredients,recipe_content, re
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
   const client = await connectToDatabase();
-  const recipesCollection = client.db().collection("recipes");
+  const recipesCollection = client.db("condiviso").collection("recipes");
   const findRecipe = await recipesCollection.findOne({ _id: recipe_id })
   if(!findRecipe || findRecipe === null){
     return Promise.reject({ status: 404 , msg: "Not Found"})
@@ -84,10 +84,10 @@ exports.removeRecipe = async (_id) => {
   try {
     const client = await connectToDatabase();
 
-    const collection = client.db().collection("recipes");
+    const collection = client.db("condiviso").collection("recipes");
     const recipesDeletionResult = await collection.deleteOne({ _id: _id });
 
-    const eventsCollection = client.db().collection("events");
+    const eventsCollection = client.db("condiviso").collection("events");
     const eventDeletionResult = await eventsCollection.updateMany({ recipes: _id},
       { $pull: { recipes: _id } });
 

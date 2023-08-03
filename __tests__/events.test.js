@@ -97,7 +97,7 @@ describe("POST /api/events", () => {
         return connectToDatabase();
       })
       .then((client) => {
-        const collection = client.db().collection("events");
+        const collection = client.db("condiviso").collection("events");
         return collection.findOne({
           _id: new ObjectId("64c7b688411bcf756d6f0867"),
         });
