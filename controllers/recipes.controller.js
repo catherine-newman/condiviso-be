@@ -1,6 +1,7 @@
 const { findRecipe } = require("../models/recipes-model");
 const { findRecipes } = require("../models/recipes-model");
 const { addRecipe } = require("../models/recipes-model");
+const { updateRecipe} = require("../models/recipes-model")
 
 exports.getRecipe = async (req, res, next) => {
   const { recipe_id } = req.params;
@@ -31,3 +32,14 @@ exports.postRecipe = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.patchRecipe = async(req, res, next) =>{
+  const { recipe_name, recipe_ingredients, recipe_content, recipe_image } = req.body;
+  const { recipe_id} = req.params;
+  try{
+    const data = await updateRecipe(recipe_name,recipe_ingredients,recipe_content, recipe_image, recipe_id);
+    res.status(200).send({ result: data});
+  }catch(err){
+    return next(err);
+  }
+}
