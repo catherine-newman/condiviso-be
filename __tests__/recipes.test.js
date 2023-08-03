@@ -198,6 +198,70 @@ describe("POST /api/recipes", () => {
   });
 });
 
+
+describe("PATCH /api/recipes/recipe_id", ()=>{
+  test("Updates and returns a recipe when passed a single value",()=>{
+    return request(app)
+    .patch("/api/recipes/64ca4d3dfc13ae0ef3089f7b")
+    .send({
+      recipe_name: "Pizza"
+    })
+    .expect(200)
+    .then(({ body })=> {
+      const updatedRecipe = body.result
+      expect(updatedRecipe.recipe_name).toBe("Pizza")
+      expect(updatedRecipe.recipe_ingredients).toBe("Soup - Campbells, Cream Of")
+      expect(updatedRecipe.recipe_content).toBe("Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.")
+      expect(updatedRecipe.recipe_image).toBe("http://dummyimage.com/187x100.png/5fa2dd/ffffff")
+    });
+  });
+  test("Updates and returns a recipe when passed multiple values",()=>{
+    return request(app)
+    .patch("/api/recipes/64ca4d3dfc13ae0ef3089f7d")
+    .send({
+      recipe_name: "Madras",
+      recipe_content: "chop it - make it"
+
+    })
+    .expect(200)
+    .then(({ body })=> {
+      const updatedRecipe = body.result
+      expect(updatedRecipe.recipe_name).toBe("Madras")
+      expect(updatedRecipe.recipe_ingredients).toBe("Water - San Pellegrino")
+      expect(updatedRecipe.recipe_content).toBe("chop it - make it")
+      expect(updatedRecipe.recipe_image).toBe("http://dummyimage.com/190x100.png/ff4444/ffffff")
+    });
+  });
+
+  test("Should return 400 Bad Request when provided an invalid recipe_id",()=>{
+    return request(app)
+    .patch("/api/recipes/64ca4d3dfc13ae0ef3089f")  
+    .send({
+      recipe_name: "Madras",
+      recipe_content: "chop it - make it"
+
+    })
+    .expect(400)
+    .then(({ body }) => {
+      expect(body.msg).toBe("Bad Request");
+    });
+  });
+
+  test("Should return 404 Not Found when provided recipe_id is valid but does not reference any data ",()=>{
+    return request(app)
+    .patch("/api/recipes/64ca4d3dfc13ae0ef3089f7a")   //64ca4d3dfc13ae0ef3089f80    64ca4d3dfc13ae0ef3089f7a
+    .send({
+      recipe_name: "Madras",
+      recipe_content: "chop it - make it"
+    })
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("Not Found")
+    })
+  })
+});
+
+
 describe('DELETE /api/recipes/:_id', () => {
   test('204: no content', async () => {
     await request(app)
@@ -233,4 +297,3 @@ describe('DELETE /api/recipes/:_id', () => {
     })
   })
 });
-
