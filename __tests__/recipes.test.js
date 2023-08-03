@@ -147,7 +147,7 @@ describe("POST /api/recipes", () => {
         return connectToDatabase();
       })
       .then((client) => {
-        const collection = client.db().collection("recipes");
+        const collection = client.db("condiviso").collection("recipes");
         return collection.findOne({
           _id: new ObjectId("64ca62fffc13ae0edc08b303"),
         });
@@ -272,11 +272,11 @@ describe('DELETE /api/recipes/:_id', () => {
     })
     const client = await connectToDatabase();
    
-      const recipeCollection = client.db().collection("recipes");
+      const recipeCollection = client.db("condiviso").collection("recipes");
       const recipeFindResult = await recipeCollection.findOne({ _id: "64ca4d3dfc13ae0ef3089f7b" });
       expect(recipeFindResult).toBeNull();
 
-      const eventsCollection = client.db().collection("events");
+      const eventsCollection = client.db("condiviso").collection("events");
       const eventsFindResult = await eventsCollection.findOne({ _id: "64c7b688411bcf756d6f0811" });
       expect(eventsFindResult.recipes).toEqual([]);
   });

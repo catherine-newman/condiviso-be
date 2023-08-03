@@ -105,7 +105,7 @@ describe("POST /api/users", () => {
         return connectToDatabase();
       })
       .then((client) => {
-        const collection = client.db().collection("users");
+        const collection = client.db("condiviso").collection("users");
         return collection.findOne({ _id: new ObjectId("64c7abf68c2d17441844e659") });
       })
       .then((findResult) => {

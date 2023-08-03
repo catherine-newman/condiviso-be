@@ -24,9 +24,9 @@ const seedDatabase = async () => {
 
     const client = await connectToDatabase();
 
-    const usersCollection = client.db().collection("users");
-    const eventsCollection = client.db().collection("events");
-    const recipesCollection = client.db().collection("recipes");
+    const usersCollection = client.db("condiviso").collection("users");
+    const eventsCollection = client.db("condiviso").collection("events");
+    const recipesCollection = client.db("condiviso").collection("recipes");
 
     await usersCollection.deleteMany();
     await eventsCollection.deleteMany();

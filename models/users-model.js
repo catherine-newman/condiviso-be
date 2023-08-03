@@ -30,9 +30,9 @@ exports.addUser = async (
   }
   try {
     const client = await connectToDatabase(); 
-    const collection = client.db().collection("users");
-    lowerUserName = user_name.toLowerCase();
-    findResult = await collection.findOne({ user_name: lowerUserName });
+    const collection = client.db("condiviso").collection("users");
+    const lowerUserName = user_name.toLowerCase();
+    const findResult = await collection.findOne({ user_name: lowerUserName });
     if (findResult) {
       return Promise.reject({ status: 409, msg: "Username already exists" });
     } else {
@@ -67,7 +67,7 @@ exports.updateUser = async (_id, updateData) => {
   try{
     
     const client = await connectToDatabase();
-    const usersCollection = client.db().collection("users");
+    const usersCollection = client.db("condiviso").collection("users");
     const user = await usersCollection.findOne({ _id: _id });
         if (!user) {
       return  Promise.reject({ status: 404, msg: "User not found" });
@@ -128,7 +128,7 @@ exports.findUser = (user_id) => {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
   return connectToDatabase().then((client) => {
-    const collection = client.db().collection("users");
+    const collection = client.db("condiviso").collection("users");
     return collection.findOne({_id: user_id });
   });
 };

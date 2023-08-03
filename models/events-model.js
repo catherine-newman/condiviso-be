@@ -50,9 +50,9 @@ exports.addEvent = async (
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
   const client = await connectToDatabase();
-  const eventsCollection = client.db().collection("events");
-  const usersCollection = client.db().collection("users");
-  findResult = await usersCollection.findOne({ _id: user_id });
+  const eventsCollection = client.db("condiviso").collection("events");
+  const usersCollection = client.db("condiviso").collection("users");
+  const findResult = await usersCollection.findOne({ _id: user_id });
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
@@ -85,7 +85,7 @@ exports.findEvent = async (event_id) => {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
   const client = await connectToDatabase();
-  const eventsCollection = client.db().collection("events");
+  const eventsCollection = client.db("condiviso").collection("events");
   const result = await eventsCollection.findOne({ _id: event_id });
   if (!result) {
     return Promise.reject({ status: 404, msg: "Not Found" });
@@ -104,7 +104,7 @@ exports.findEvents = async (
   user_id
 ) => {
   const client = await connectToDatabase();
-  const eventsCollection = client.db().collection("events");
+  const eventsCollection = client.db("condiviso").collection("events");
   const dateRegex = /^[0-9]{4}(\/|-)(1[0-2]|0?[1-9])(\/|-)(3[01]|[12][0-9]|0?[1-9])$/;
   const query = {};
   if (from_date) {
@@ -203,7 +203,7 @@ if (patchBody.attendees) {
 
 
   return connectToDatabase().then((client) => {
-    const eventsCollection = client.db().collection("events");
+    const eventsCollection = client.db("condiviso").collection("events");
     return eventsCollection.updateOne({ _id: _id }, {$set: updateObj}).then(() => {
       const updateEvent = eventsCollection.findOne({ _id: _id })
       return updateEvent
