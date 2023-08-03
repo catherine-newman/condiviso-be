@@ -51,3 +51,30 @@ exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_
   result = await recipesCollection.insertOne(newRecipe);
   return result;
 }
+
+
+
+
+exports.removeRecipe = async (_id) => {
+  try {
+    const client = await connectToDatabase();
+
+    const collection = client.db().collection("recipes");
+    const recipesDeletionResult = await collection.deleteOne({ _id: _id });
+
+    const eventsCollection = client.db().collection("events");
+    const eventDeletionResult = await eventsCollection.updateMany({ recipes: _id},
+      { $pull: { recipes: _id } });
+
+      const bothResults = [recipesDeletionResult, eventDeletionResult];
+      if(!bothResults[0].acknowledged === true && !bothResults[1].acknowledged === true){
+        return bothResults;
+        }
+
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+
+
