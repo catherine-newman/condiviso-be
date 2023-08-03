@@ -7,9 +7,11 @@ exports.addEvent = async (
   first_name,
   last_name,
   user_name,
+  userid,
   email,
   event_date,
   event_location,
+  postcode,
   latitude,
   longitude,
   latitude_fuzzy,
@@ -26,9 +28,11 @@ exports.addEvent = async (
     !first_name ||
     !last_name ||
     !user_name ||
+    !userid ||
     !email ||
     !event_date ||
     !event_location ||
+    !postcode ||
     !latitude ||
     !longitude ||
     !latitude_fuzzy ||
@@ -41,43 +45,35 @@ exports.addEvent = async (
     !recipes
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
-  if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0) {
+    const postcodeRegex = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/;
+  if (recipes.length === 0 || event_duration <= 0 || max_attendees <= 0 || !postcodeRegex.test(postcode)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
-  }
-  for (const recipe of recipes) {
-    if (!recipe.recipe_name || !recipe.recipe_image || !recipe.recipe_content) {
-      return Promise.reject({ status: 400, msg: "Bad Request" });
-    }
   }
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
   const usersCollection = client.db().collection("users");
-  findResult = await usersCollection.findOne({ user_name: user_name });
+  findResult = await usersCollection.findOne({ _id: userid });
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
-  let newId;
-  if (_id) {
-    newId = new ObjectId(_id);
-  } else {
-    newId = new ObjectId();
-  }
   const newEvent = {
-    _id: newId,
+    _id: new ObjectId(_id),
     event_name,
     first_name,
     last_name,
     user_name,
+    userid,
     email,
     event_date: new Date(event_date),
     event_location,
+    postcode,
     coordinate: {type: "Point", "coordinates": [Number(longitude), Number(latitude)]},
     coordinate_fuzzy: {type: "Point", "coordinates": [Number(longitude_fuzzy), Number(latitude_fuzzy)]},
     event_city,
     event_description,
     event_duration: Number(event_duration),
     max_attendees: Number(max_attendees),
-    spaces_free: Number(max_attendees),
+    spaces_free: Number(max_attendees) - attendees.length,
     attendees,
     recipes,
   };
@@ -104,7 +100,8 @@ exports.findEvents = async (
   lat,
   dist = 10,
   unit,
-  spaces
+  spaces,
+  userid
 ) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
@@ -130,6 +127,13 @@ exports.findEvents = async (
     }
     query.spaces_free = query.spaces_left || {};
     query.spaces_free.$gt = 0;
+  }
+  if (userid) {
+    if (!ObjectId.isValid(userid)) {
+      return Promise.reject({ status: 400, msg: "Bad Request" });
+    }
+    query.userid = query.userid || {};
+    query.userid = userid;
   }
   if (lat && lon) {
     const lonRegex =
@@ -179,7 +183,7 @@ exports.updateEvent = (_id, patchBody) => {
   const dateRegex = /^[0-9A-Za-z\:.-]*$/;
  
 
-  if(!patchBody.event_name.match(letterRegex) || !patchBody.event_date.match(dateRegex) || isNaN(patchBody.event_duration)) {
+  if(!patchBody.event_name.match(letterRegex) || !patchBody.event_date.match(dateRegex) || isNaN(patchBody.event_duration) || !Array.isArray(patchBody.attendees)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
 
@@ -188,9 +192,13 @@ exports.updateEvent = (_id, patchBody) => {
   }
   const updateObj = {};
 if (patchBody.event_name) updateObj.event_name = patchBody.event_name;
-if (patchBody.event_date) updateObj.event_date = patchBody.event_date;
+if (patchBody.event_date) updateObj.event_date = new Date(patchBody.event_date);
 if (patchBody.event_description) updateObj.event_description = patchBody.event_description;
-if (patchBody.event_duration) updateObj.event_duration = patchBody.event_duration;
+if (patchBody.event_duration) updateObj.event_duration = Number(patchBody.event_duration);
+if (patchBody.attendees) {
+  updateObj.attendees = patchBody.attendees;
+  updateObj.spaces_free = patchBody.max_attendees - patchBody.attendees.length;
+}
 
 
   return connectToDatabase().then((client) => {

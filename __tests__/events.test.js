@@ -32,9 +32,11 @@ describe("POST /api/events", () => {
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
@@ -49,14 +51,7 @@ describe("POST /api/events", () => {
           { user_name: "bplum2" },
           { user_name: "mdavidavidovics3" },
         ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
-        ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(201)
       .then(({ body }) => {
@@ -72,13 +67,15 @@ describe("POST /api/events", () => {
       .post("/api/events")
       .send({
         _id: "64c7b688411bcf756d6f0867",
-        event_name: "Totally unique event name",
+        event_name: "Honorable",
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
@@ -87,15 +84,13 @@ describe("POST /api/events", () => {
         event_description: "Quisque porta volutpat erat. Quisque erat eros.",
         event_duration: 2,
         max_attendees: 6,
-        attendees: [],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
+        attendees: [
+          { user_name: "abenettolo0" },
+          { user_name: "kkellog1" },
+          { user_name: "bplum2" },
+          { user_name: "mdavidavidovics3" },
         ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(201)
       .then(() => {
@@ -128,9 +123,11 @@ describe("POST /api/events", () => {
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
@@ -145,14 +142,7 @@ describe("POST /api/events", () => {
           { user_name: "bplum2" },
           { user_name: "mdavidavidovics3" },
         ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
-        ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(201)
       .then(({ body }) => {
@@ -169,9 +159,11 @@ describe("POST /api/events", () => {
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
@@ -193,51 +185,6 @@ describe("POST /api/events", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("status:400 returns an error if values of recipes are blank", () => {
-    return request(app)
-      .post("/api/events")
-      .send({
-        _id: "64c7b688411bcf756d6f0867",
-        event_name: "Honorable",
-        first_name: "Sigismond",
-        last_name: "Sainz",
-        user_name: "murling0",
-        email: "ssainz0@weebly.com",
-        event_date: "3/2/2022",
-        event_location: "65231 Brentwood Avenue",
-        latitude: -7.7016409,
-        longitude: 112.9827091,
-        latitude_fuzzy: 11.3451287,
-        longitude_fuzzy: -72.3628361,
-        event_city: "Grati Satu",
-        event_description: "Quisque porta volutpat erat. Quisque erat eros.",
-        event_duration: 2,
-        max_attendees: 6,
-        attendees: [
-          { user_name: "abenettolo0" },
-          { user_name: "kkellog1" },
-          { user_name: "bplum2" },
-          { user_name: "mdavidavidovics3" },
-        ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
-          {
-            recipe_image: "",
-            recipe_name: "",
-            recipe_content: "",
-          },
-        ],
-      })
-      .expect(400)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Bad Request");
-      });
-  });
   test("status:400 returns an error if event_duration is 0 or lower", () => {
     return request(app)
       .post("/api/events")
@@ -247,9 +194,11 @@ describe("POST /api/events", () => {
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
@@ -264,14 +213,7 @@ describe("POST /api/events", () => {
           { user_name: "bplum2" },
           { user_name: "mdavidavidovics3" },
         ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
-        ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(400)
       .then(({ body }) => {
@@ -287,16 +229,18 @@ describe("POST /api/events", () => {
         first_name: "Sigismond",
         last_name: "Sainz",
         user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
         longitude_fuzzy: -72.3628361,
         event_city: "Grati Satu",
         event_description: "Quisque porta volutpat erat. Quisque erat eros.",
-        event_duration: 1,
+        event_duration: 2,
         max_attendees: -1,
         attendees: [
           { user_name: "abenettolo0" },
@@ -304,21 +248,14 @@ describe("POST /api/events", () => {
           { user_name: "bplum2" },
           { user_name: "mdavidavidovics3" },
         ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
-        ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  test("status:400 returns an error if user_name is not in the database", () => {
+  test("status:400 returns an error if userid is not in the database", () => {
     return request(app)
       .post("/api/events")
       .send({
@@ -326,32 +263,62 @@ describe("POST /api/events", () => {
         event_name: "Honorable",
         first_name: "Sigismond",
         last_name: "Sainz",
-        user_name: "nonexistentusername",
+        user_name: "murling0",
+        userid: "64cab922fc13ae54a3089f7b",
         email: "ssainz0@weebly.com",
         event_date: "3/2/2022",
         event_location: "65231 Brentwood Avenue",
+        postcode: "TR14 8GH",
         latitude: -7.7016409,
         longitude: 112.9827091,
         latitude_fuzzy: 11.3451287,
         longitude_fuzzy: -72.3628361,
         event_city: "Grati Satu",
         event_description: "Quisque porta volutpat erat. Quisque erat eros.",
-        event_duration: 1,
-        max_attendees: 7,
+        event_duration: 2,
+        max_attendees: 6,
         attendees: [
           { user_name: "abenettolo0" },
           { user_name: "kkellog1" },
           { user_name: "bplum2" },
           { user_name: "mdavidavidovics3" },
         ],
-        recipes: [
-          {
-            recipe_image: "http://dummyimage.com/202x100.png/5fa2dd/ffffff",
-            recipe_name: "orci",
-            recipe_content:
-              "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-          },
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
+  test("status:400 returns an error if postcode is not valid", () => {
+    return request(app)
+      .post("/api/events")
+      .send({
+        _id: "64c7b688411bcf756d6f0867",
+        event_name: "Honorable",
+        first_name: "Sigismond",
+        last_name: "Sainz",
+        user_name: "murling0",
+        userid: "64c7abf68c2d17441844e6fd",
+        email: "ssainz0@weebly.com",
+        event_date: "3/2/2022",
+        event_location: "65231 Brentwood Avenue",
+        postcode: "booooo",
+        latitude: -7.7016409,
+        longitude: 112.9827091,
+        latitude_fuzzy: 11.3451287,
+        longitude_fuzzy: -72.3628361,
+        event_city: "Grati Satu",
+        event_description: "Quisque porta volutpat erat. Quisque erat eros.",
+        event_duration: 2,
+        max_attendees: 6,
+        attendees: [
+          { user_name: "abenettolo0" },
+          { user_name: "kkellog1" },
+          { user_name: "bplum2" },
+          { user_name: "mdavidavidovics3" },
         ],
+        recipes: ["64ca4d3dfc13ae0ef3089f7b"],
       })
       .expect(400)
       .then(({ body }) => {
@@ -370,6 +337,7 @@ describe("GET /api/events/:event_id", () => {
         expect(body.event).toHaveProperty("first_name", "Sigismond");
         expect(body.event).toHaveProperty("last_name", "Sainz");
         expect(body.event).toHaveProperty("user_name", "murling0");
+        expect(body.event).toHaveProperty("userid", "64c7abf68c2d17441844e6fd");
         expect(body.event).toHaveProperty("email", "ssainz0@weebly.com");
         expect(body.event).toHaveProperty(
           "event_date",
@@ -379,6 +347,7 @@ describe("GET /api/events/:event_id", () => {
           "event_location",
           "65231 Brentwood Avenue"
         );
+        expect(body.event).toHaveProperty("postcode", "RM8 2EH");
         expect(body.event).toHaveProperty("coordinate", expect.any(Object));
         expect(body.event).toHaveProperty(
           "coordinate_fuzzy",
@@ -536,6 +505,32 @@ describe("GET /api/events/", () => {
         expect(body.msg).toBe("Not Found");
       });
   });
+  test("events can be filtered by userid", () => {
+    return request(app)
+      .get("/api/events?userid=64c7abf68c2d17441844e6fd")
+      .expect(200)
+      .then(({ body }) => {
+        const events = body.events;
+        expect(events.length).toBe(1);
+        expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
+      });
+  });
+  test("status:404 responds with an error message if userid does not exist", () => {
+    return request(app)
+      .get("/api/events?userid=64ca4d3dfc13ae0ef3089f7e")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
+  test("status:400 responds with an error message if userid is not valid", () => {
+    return request(app)
+      .get("/api/events?userid=booooo")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Bad Request");
+      });
+  });
 });
 
 describe('PATCH /api/events/:_id', () => { 
@@ -544,9 +539,14 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ],
+     max_attendees: 10
     }
-
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
     .send(patchBody)
@@ -557,6 +557,12 @@ describe('PATCH /api/events/:_id', () => {
       expect(updatedEvent.event_date).toBe("2023-08-01T00:00:00.000Z")
       expect(updatedEvent.event_description).toBe( "come get food")
       expect(updatedEvent.event_duration).toBe(3)
+      expect(updatedEvent.attendees).toEqual([
+         { "user_name": "anakin"},
+         { "user_name": "obi" },
+         { "user_name": "quigon" }
+      ])
+      expect(updatedEvent.spaces_free).toBe(7)
     })
   }); 
   test('404: Should return an error when the id is non-existent', () => { 
@@ -564,7 +570,12 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0899')
@@ -580,7 +591,12 @@ describe('PATCH /api/events/:_id', () => {
       event_name: "happy meal",
       event_date: "2023-08-01T00:00:00.000Z",
       event_description: "come get food",
-      event_duration: 3
+      event_duration: 3,
+      attendees: [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f08?')
@@ -596,7 +612,12 @@ describe('PATCH /api/events/:_id', () => {
     event_name: '%',
     event_date: "2023-08-01T00:00:00.000Z",
     event_description: "come get food",
-    event_duration: 3
+    event_duration: 3,
+    attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
    }
    return request(app)
    .patch('/api/events/64c7b688411bcf756d6f0811')
@@ -612,7 +633,12 @@ describe('PATCH /api/events/:_id', () => {
      event_name: 'h',
      event_date: "2023-08-01T00:00:00.000Z%",
      event_description: "come get food",
-     event_duration: 3
+     event_duration: 3,
+     attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
     }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
@@ -628,8 +654,34 @@ describe('PATCH /api/events/:_id', () => {
      event_name: 'h',
      event_date: "2023-08-01T00:00:00.000Z",
      event_description: "come get food",
-     event_duration: 'j'
+     event_duration: 'j',
+     attendees: [
+      { "user_name": "anakin" },
+      { "user_name": "obi" },
+      { "user_name": "quigon" }
+   ]
     }
+    return request(app)
+    .patch('/api/events/64c7b688411bcf756d6f0811')
+    .send(patchBody)
+    .expect(400)
+    .then(({body}) => {
+      expect(body).toHaveProperty("msg");
+      expect(body.msg).toBe("Bad Request");
+    })
+   });
+   test('400: Should return an error when request body has malformed value for attendees field', () => { 
+    const patchBody = {
+     event_name: 'h',
+     event_date: "2023-08-01T00:00:00.000Z",
+     event_description: "come get food",
+     event_duration: 2,
+     attendees: { 
+      "user_name": "anakin" ,
+       "user_name": "obi" ,
+      "user_name": "quigon"
+    }
+  }
     return request(app)
     .patch('/api/events/64c7b688411bcf756d6f0811')
     .send(patchBody)
@@ -641,6 +693,6 @@ describe('PATCH /api/events/:_id', () => {
    });
   });
 
-// non change patch
+
 
 

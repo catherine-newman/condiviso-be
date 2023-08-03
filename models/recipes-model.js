@@ -52,6 +52,7 @@ exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_
   return result;
 }
 
+
 exports.updateRecipe = async ( recipe_name,recipe_ingredients,recipe_content, recipe_image, recipe_id) =>{
   if (!ObjectId.isValid(recipe_id)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
@@ -71,3 +72,37 @@ exports.updateRecipe = async ( recipe_name,recipe_ingredients,recipe_content, re
   const amendedRecipe = await recipesCollection.findOne({ _id: recipe_id });
   return amendedRecipe;
 }
+
+
+
+
+exports.removeRecipe = async (_id) => {
+  if (!ObjectId.isValid(_id)) {
+    return Promise.reject({ status: 400, msg: "Bad Request" });
+  }
+
+  try {
+    const client = await connectToDatabase();
+
+    const collection = client.db().collection("recipes");
+    const recipesDeletionResult = await collection.deleteOne({ _id: _id });
+
+    const eventsCollection = client.db().collection("events");
+    const eventDeletionResult = await eventsCollection.updateMany({ recipes: _id},
+      { $pull: { recipes: _id } });
+
+      const bothResults = [recipesDeletionResult, eventDeletionResult];
+      if(bothResults[0].deletedCount !== 0 && bothResults[1].modifiedCount !== 0){
+        return bothResults;
+        } else {
+          return Promise.reject({ status: 404, msg: "Recipe Not Found" });
+        }
+
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+
+
+
