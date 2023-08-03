@@ -59,7 +59,7 @@
       "first_name": "Sigismond",
       "last_name": "Sainz",
       "user_name": "murling0",
-      "userid": "64c7abf68c2d17441844e6fd",
+      "user_id": "64c7abf68c2d17441844e6fd",
       "email": "ssainz0@weebly.com",
       "event_date": "2023-08-01T00:00:00.000Z",
       "event_location": "65231 Brentwood Avenue",
@@ -96,7 +96,7 @@
         "first_name": "Sigismond",
         "last_name": "Sainz",
         "user_name": "murling0",
-        "userid": "64c7abf68c2d17441844e6fd",
+        "user_id": "64c7abf68c2d17441844e6fd",
         "email": "ssainz0@weebly.com",
         "event_date": "2023-08-01T00:00:00.000Z",
         "event_location": "65231 Brentwood Avenue",
@@ -134,7 +134,7 @@
   },
   "GET /api/events": {
     "description": "serves all events",
-    "queries": ["spaces", "lon", "lat", "dist", "unit", "from_date", "to_date", "userid"],
+    "queries": ["spaces", "lon", "lat", "dist", "unit", "from_date", "to_date", "user_id"],
     "format": {},
     "exampleResponse": {
       "events": [
@@ -144,7 +144,7 @@
           "first_name": "Sigismond",
           "last_name": "Sainz",
           "user_name": "murling0",
-          "userid": "64c7abf68c2d17441844e6fd",
+          "user_id": "64c7abf68c2d17441844e6fd",
           "email": "ssainz0@weebly.com",
           "event_date": "2023-08-01T00:00:00.000Z",
           "event_location": "65231 Brentwood Avenue",

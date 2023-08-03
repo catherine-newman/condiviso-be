@@ -30,24 +30,24 @@ describe("GET /api/recipes/:recipe_id", () => {
       .then(({ body }) => {
         expect(body.recipe).toHaveProperty("_id", "64ca4d3dfc13ae0ef3089f7b");
         expect(body.recipe).toHaveProperty(
-          "userid",
-          "64ca4d3dfc13ae0ef3089f7c"
+          "user_id",
+          "64c7abf68c2d17441844e6fd"
         );
         expect(body.recipe).toHaveProperty(
           "recipe_name",
-          "Numi - Assorted Teas"
+          "Classic Spaghetti Carbonara"
         );
         expect(body.recipe).toHaveProperty(
           "recipe_ingredients",
-          "Soup - Campbells, Cream Of"
+          "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste"
         );
         expect(body.recipe).toHaveProperty(
           "recipe_content",
-          "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus."
+          "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately."
         );
         expect(body.recipe).toHaveProperty(
           "recipe_image",
-          "http://dummyimage.com/187x100.png/5fa2dd/ffffff"
+          "Spaghetti_Carbonara.jpeg"
         );
       });
   });
@@ -77,7 +77,7 @@ describe("GET /api/recipes", ()=>{
     expect(res.body.recipes.length).toBe(10);
     res.body.recipes.forEach(recipe =>{
       expect(recipe).toHaveProperty('_id', expect.any(String));
-      expect(recipe).toHaveProperty('userid', expect.any(String));
+      expect(recipe).toHaveProperty('user_id', expect.any(String));
       expect(recipe).toHaveProperty('recipe_name', expect.any(String));
       expect(recipe).toHaveProperty('recipe_ingredients', expect.any(String));
       expect(recipe).toHaveProperty('recipe_content', expect.any(String));
@@ -87,23 +87,23 @@ describe("GET /api/recipes", ()=>{
   })
   test('can filter recipes by user id',async ()=>{
     const res = await request(app)
-    .get("/api/recipes?userid=64ca4d3dfc13ae0ef3089f7c")
+    .get("/api/recipes?user_id=64c7abf68c2d17441844e6fd")
     .expect(200)
     res.body.recipes.forEach(recipe =>{
-      expect(recipe).toHaveProperty('userid', '64ca4d3dfc13ae0ef3089f7c')
+      expect(recipe).toHaveProperty('user_id', '64c7abf68c2d17441844e6fd')
     })
   })
 
   test('expect 404 when no recipe exists', async ()=>{
     const res = await request(app)
-    .get("/api/recipes?userid=64ca62fffc13ae0edc08b303")
+    .get("/api/recipes?user_id=64ca62fffc13ae0edc08b303")
     .expect(404)
     expect(res.body.msg).toBe("Not Found")
   })
 
-  test('expect 400 when userid is not valid', async ()=>{
+  test('expect 400 when user_id is not valid', async ()=>{
   const res = await request(app)
-  .get("/api/recipes?userid=notvalid")
+  .get("/api/recipes?user_id=notvalid")
   .expect(400)
   expect(res.body.msg).toBe("Bad Request")
 })
@@ -116,7 +116,7 @@ describe("POST /api/recipes", () => {
       .post("/api/recipes")
       .send({
         _id: "64ca62fffc13ae0edc08b303",
-        userid: "64c7abf68c2d17441844e6fd",
+        user_id: "64c7abf68c2d17441844e6fd",
         recipe_name: "tomato soup",
         recipe_ingredients: "catfish",
         recipe_content: "mix it up",
@@ -136,7 +136,7 @@ describe("POST /api/recipes", () => {
       .post("/api/recipes")
       .send({
         _id: "64ca62fffc13ae0edc08b303",
-        userid: "64c7abf68c2d17441844e6fd",
+        user_id: "64c7abf68c2d17441844e6fd",
         recipe_name: "tomato soup",
         recipe_ingredients: "catfish",
         recipe_content: "mix it up",
@@ -169,7 +169,7 @@ describe("POST /api/recipes", () => {
     return request(app)
       .post("/api/recipes")
       .send({
-        userid: "64c7abf68c2d17441844e6fd",
+        user_id: "64c7abf68c2d17441844e6fd",
         recipe_name: "tomato soup",
         recipe_ingredients: "catfish",
         recipe_content: "mix it up",
@@ -181,11 +181,11 @@ describe("POST /api/recipes", () => {
         expect(body.result).toHaveProperty("insertedId", expect.any(String));
       });
   });
-  test("status:400 returns an error if userid is not in the database", () => {
+  test("status:400 returns an error if user_id is not in the database", () => {
     return request(app)
       .post("/api/recipes")
       .send({
-        userid: "64ca8547fc13ae0edc08b319",
+        user_id: "64ca8547fc13ae0edc08b319",
         recipe_name: "tomato soup",
         recipe_ingredients: "catfish",
         recipe_content: "mix it up",
@@ -210,9 +210,9 @@ describe("PATCH /api/recipes/recipe_id", ()=>{
     .then(({ body })=> {
       const updatedRecipe = body.result
       expect(updatedRecipe.recipe_name).toBe("Pizza")
-      expect(updatedRecipe.recipe_ingredients).toBe("Soup - Campbells, Cream Of")
-      expect(updatedRecipe.recipe_content).toBe("Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.")
-      expect(updatedRecipe.recipe_image).toBe("http://dummyimage.com/187x100.png/5fa2dd/ffffff")
+      expect(updatedRecipe.recipe_ingredients).toBe("200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste")
+      expect(updatedRecipe.recipe_content).toBe("Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.")
+      expect(updatedRecipe.recipe_image).toBe("Spaghetti_Carbonara.jpeg")
     });
   });
   test("Updates and returns a recipe when passed multiple values",()=>{
@@ -227,9 +227,9 @@ describe("PATCH /api/recipes/recipe_id", ()=>{
     .then(({ body })=> {
       const updatedRecipe = body.result
       expect(updatedRecipe.recipe_name).toBe("Madras")
-      expect(updatedRecipe.recipe_ingredients).toBe("Water - San Pellegrino")
+      expect(updatedRecipe.recipe_ingredients).toBe("4 boneless, skinless chicken breasts 2 lemons, juiced and zested 2 tbsp olive oil 2 cloves garlic minced, 1 tsp dried thyme, 1 tsp dried rosemary Salt and pepper to taste")
       expect(updatedRecipe.recipe_content).toBe("chop it - make it")
-      expect(updatedRecipe.recipe_image).toBe("http://dummyimage.com/190x100.png/ff4444/ffffff")
+      expect(updatedRecipe.recipe_image).toBe("Lemon_herb_chicken.jpeg")
     });
   });
 

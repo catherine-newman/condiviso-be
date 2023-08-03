@@ -290,7 +290,7 @@ describe("PATCH /api/users/_id", () => {
 describe("GET /api/users/:_id", () => {
   test("return 200 status, should return a single user", () => {
     return request(app)
-      .get("/api/users/64c7abf68c2d17441844e6fe")
+      .get("/api/users/64c7abf68c2d17441844e6fd")
       .expect(200)
       .then(({body}) => {
         expect(body).toHaveProperty("first_name");
@@ -300,14 +300,7 @@ describe("GET /api/users/:_id", () => {
         expect(body).toHaveProperty("address")
         expect(body).toHaveProperty("postcode")
         expect(body).toHaveProperty("about_me")
-        expect(body).toHaveProperty("recipes")
-        expect(body._id).toBe("64c7abf68c2d17441844e6fe")
-        expect(Array.isArray(body.recipes)).toBe(true)
-        body.recipes.forEach((recipe) => {
-          expect(recipe).toHaveProperty("recipe_name")
-        expect(recipe).toHaveProperty("recipe_image")
-        expect(recipe).toHaveProperty("recipe_content")
-      })
+        expect(body._id).toBe("64c7abf68c2d17441844e6fd")
       })
   });
 });

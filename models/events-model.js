@@ -7,7 +7,7 @@ exports.addEvent = async (
   first_name,
   last_name,
   user_name,
-  userid,
+  user_id,
   email,
   event_date,
   event_location,
@@ -28,7 +28,7 @@ exports.addEvent = async (
     !first_name ||
     !last_name ||
     !user_name ||
-    !userid ||
+    !user_id ||
     !email ||
     !event_date ||
     !event_location ||
@@ -52,7 +52,7 @@ exports.addEvent = async (
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
   const usersCollection = client.db().collection("users");
-  findResult = await usersCollection.findOne({ _id: userid });
+  findResult = await usersCollection.findOne({ _id: user_id });
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
@@ -62,7 +62,7 @@ exports.addEvent = async (
     first_name,
     last_name,
     user_name,
-    userid,
+    user_id,
     email,
     event_date: new Date(event_date),
     event_location,
@@ -101,7 +101,7 @@ exports.findEvents = async (
   dist = 10,
   unit,
   spaces,
-  userid
+  user_id
 ) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db().collection("events");
@@ -128,12 +128,12 @@ exports.findEvents = async (
     query.spaces_free = query.spaces_left || {};
     query.spaces_free.$gt = 0;
   }
-  if (userid) {
-    if (!ObjectId.isValid(userid)) {
+  if (user_id) {
+    if (!ObjectId.isValid(user_id)) {
       return Promise.reject({ status: 400, msg: "Bad Request" });
     }
-    query.userid = query.userid || {};
-    query.userid = userid;
+    query.user_id = query.user_id || {};
+    query.user_id = user_id;
   }
   if (lat && lon) {
     const lonRegex =
@@ -143,9 +143,9 @@ exports.findEvents = async (
     if (!lonRegex.test(lon) || !latRegex.test(lat)) {
       return Promise.reject({ status: 400, msg: "Bad Request" });
     }
-    let distMult = 3959;
+    let distMult = 1609.34 * Number(dist);
     if (unit === "k") {
-      distMult = 6371;
+      distMult = 1000 * Number(dist);
     }
     await eventsCollection.createIndex({ coordinate_fuzzy: "2dsphere" });
     const result = await eventsCollection
@@ -156,10 +156,11 @@ exports.findEvents = async (
               type: "Point",
               coordinates: [Number(lon), Number(lat)],
             },
-            distanceField: "distance",
-            maxDistance: Number(dist),
+            distanceField: "dist.calculated",
+            key: "coordinate_fuzzy",
+            maxDistance: distMult,
             spherical: true,
-            distanceMultiplier: distMult,
+            includeLocs: "dist.location"
           },
         },
         { $match: query },
