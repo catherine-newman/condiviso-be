@@ -1,6 +1,7 @@
 const { findRecipe } = require("../models/recipes-model");
 const { findRecipes } = require("../models/recipes-model");
 const { addRecipe } = require("../models/recipes-model");
+const { removeRecipe } = require("../models/recipes-model")
 
 exports.getRecipe = async (req, res, next) => {
   const { recipe_id } = req.params;
@@ -27,6 +28,16 @@ exports.postRecipe = async (req, res, next) => {
   try {
     const data = await addRecipe(_id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image);
     res.status(201).send({ result: data });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.deleteRecipe = async (req, res, next) => {
+  const { _id } = req.params;
+  try {
+    const data = await removeRecipe(_id);
+    res.status(204).send(data);
   } catch (err) {
     return next(err);
   }
