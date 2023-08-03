@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon listen.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "node listen.js"
   },
   "repository": {
     "type": "git",
