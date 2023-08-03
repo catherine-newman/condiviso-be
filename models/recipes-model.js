@@ -67,8 +67,10 @@ exports.removeRecipe = async (_id) => {
       { $pull: { recipes: _id } });
 
       const bothResults = [recipesDeletionResult, eventDeletionResult];
-      if(!bothResults[0].acknowledged === true && !bothResults[1].acknowledged === true){
+      if(bothResults[0].deletedCount !== 0 && bothResults[1].modifiedCount !== 0){
         return bothResults;
+        } else {
+          return Promise.reject({ status: 404, msg: "Recipe not found" });
         }
 
   } catch (error) {

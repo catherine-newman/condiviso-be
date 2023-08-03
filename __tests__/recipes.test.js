@@ -216,5 +216,13 @@ describe('DELETE /api/recipes/:_id', () => {
       const eventsFindResult = await eventsCollection.findOne({ _id: "64c7b688411bcf756d6f0811" });
       expect(eventsFindResult.recipes).toEqual([]);
   });
+  test('404: recipe id does not exist', async () => {
+    await request(app)
+    .delete("/api/recipes/64ca4d3dfc13ae0ef3089f99")
+    .expect(404)
+    .then(({body}) => {
+      expect(body.msg).toBe("Recipe not found");
+    })
+  })
 });
 
