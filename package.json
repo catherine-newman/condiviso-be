@@ -2,7 +2,7 @@
   "name": "condiviso-be",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
     "test": "jest",
     "dev": "nodemon listen.js",
