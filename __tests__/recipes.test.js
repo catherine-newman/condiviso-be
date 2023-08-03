@@ -221,7 +221,15 @@ describe('DELETE /api/recipes/:_id', () => {
     .delete("/api/recipes/64ca4d3dfc13ae0ef3089f99")
     .expect(404)
     .then(({body}) => {
-      expect(body.msg).toBe("Recipe not found");
+      expect(body.msg).toBe("Recipe Not Found");
+    })
+  })
+  test("400: invalid recipe id", async () => {
+    await request(app)
+    .delete("/api/recipes/64ca4d3dfc13ae0ef3089f??")
+    .expect(400)
+    .then(({body}) => {
+      expect(body.msg).toBe("Bad Request");
     })
   })
 });
