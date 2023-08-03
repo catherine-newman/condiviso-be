@@ -15,9 +15,9 @@ exports.getRecipe = async (req, res, next) => {
 };
 
 exports.getRecipes = async (req, res, next) => {
-  const { userid } = req.query;
+  const { user_id } = req.query;
   try {
-    const data = await findRecipes(userid);
+    const data = await findRecipes(user_id);
     res.status(200).send({ recipes: data });
   } catch (err) {
     return next(err);
@@ -25,9 +25,9 @@ exports.getRecipes = async (req, res, next) => {
 };
 
 exports.postRecipe = async (req, res, next) => {
-  const { _id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image } = req.body;
+  const { _id, user_id, recipe_name, recipe_ingredients, recipe_content, recipe_image } = req.body;
   try {
-    const data = await addRecipe(_id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image);
+    const data = await addRecipe(_id, user_id, recipe_name, recipe_ingredients, recipe_content, recipe_image);
     res.status(201).send({ result: data });
   } catch (err) {
     return next(err);

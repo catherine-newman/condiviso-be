@@ -10,7 +10,7 @@ exports.postEvent = (req, res, next) => {
     first_name,
     last_name,
     user_name,
-    userid,
+    user_id,
     email,
     event_date,
     event_location,
@@ -32,7 +32,7 @@ exports.postEvent = (req, res, next) => {
     first_name,
     last_name,
     user_name,
-    userid,
+    user_id,
     email,
     event_date,
     event_location,
@@ -68,8 +68,8 @@ exports.getEvent = (req, res, next) => {
 };
 
 exports.getEvents = (req, res, next) => {
-  const { from_date, to_date, lon, lat, dist, unit, spaces, userid } = req.query;
-  findEvents(from_date, to_date, lon, lat, dist, unit, spaces, userid)
+  const { from_date, to_date, lon, lat, dist, unit, spaces, user_id } = req.query;
+  findEvents(from_date, to_date, lon, lat, dist, unit, spaces, user_id)
     .then((data) => {
       res.status(200).send({ events: data });
     })

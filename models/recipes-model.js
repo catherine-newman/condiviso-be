@@ -14,15 +14,15 @@ exports.findRecipe = async (recipe_id) => {
   return result;
 };
 
-exports.findRecipes = async (userid) => {
+exports.findRecipes = async (user_id) => {
   const client = await connectToDatabase();
   const collection = client.db().collection("recipes");
   let result;
-  if(userid) {
-   if(!ObjectId.isValid(userid)) {
+  if(user_id) {
+   if(!ObjectId.isValid(user_id)) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
-  result = await collection.find({ userid: userid }).toArray()
+  result = await collection.find({ user_id: user_id }).toArray()
 }
   else  result = await collection.find().toArray();
   if (!result.length) {
@@ -31,8 +31,8 @@ exports.findRecipes = async (userid) => {
   return result;
 };
 
-exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_content, recipe_image) => {
-  if (!userid ||
+exports.addRecipe = async (_id, user_id, recipe_name, recipe_ingredients, recipe_content, recipe_image) => {
+  if (!user_id ||
     !recipe_name ||
     !recipe_ingredients ||
     !recipe_content ||
@@ -43,11 +43,11 @@ exports.addRecipe = async (_id, userid, recipe_name, recipe_ingredients, recipe_
   const client = await connectToDatabase();
   const recipesCollection = client.db().collection("recipes");
   const usersCollection = client.db().collection("users");
-  const findResult = await usersCollection.findOne({ _id : userid});
+  const findResult = await usersCollection.findOne({ _id : user_id});
   if (!findResult) {
     return Promise.reject({ status: 400, msg: "Bad Request" });
   }
-  const newRecipe = {_id : new ObjectId(_id), userid, recipe_name, recipe_ingredients, recipe_content, recipe_image};
+  const newRecipe = {_id : new ObjectId(_id), user_id, recipe_name, recipe_ingredients, recipe_content, recipe_image};
   result = await recipesCollection.insertOne(newRecipe);
   return result;
 }
