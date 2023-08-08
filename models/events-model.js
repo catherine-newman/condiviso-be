@@ -112,7 +112,8 @@ exports.findEvents = async (
   dist = 10,
   unit,
   spaces,
-  user_id
+  user_id, 
+  attending   
 ) => {
   const client = await connectToDatabase();
   const eventsCollection = client.db("condiviso").collection("events");
@@ -144,8 +145,12 @@ exports.findEvents = async (
     if (!ObjectId.isValid(user_id)) {
       return Promise.reject({ status: 400, msg: "Bad Request" });
     }
-    query.user_id = query.user_id || {};
-    query.user_id = user_id;
+    if(attending === 'true') {
+      query.attendees = { $elemMatch: { user_id: user_id } }
+    } else {
+         query.user_id = query.user_id || {};
+         query.user_id = user_id;
+    }
   }
   if (lat && lon) {
     const lonRegex =
