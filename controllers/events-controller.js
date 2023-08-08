@@ -68,8 +68,8 @@ exports.getEvent = (req, res, next) => {
 };
 
 exports.getEvents = (req, res, next) => {
-  const { from_date, to_date, lon, lat, dist, unit, spaces, user_id } = req.query;
-  findEvents(from_date, to_date, lon, lat, dist, unit, spaces, user_id)
+  const { from_date, to_date, lon, lat, dist, unit, spaces, user_id, attending } = req.query;
+  findEvents(from_date, to_date, lon, lat, dist, unit, spaces, user_id, attending) 
     .then((data) => {
       res.status(200).send({ events: data });
     })

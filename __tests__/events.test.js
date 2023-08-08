@@ -506,7 +506,7 @@ describe("GET /api/events/", () => {
   });
   test("events can be filtered by user_id", () => {
     return request(app)
-      .get("/api/events?user_id=64c7abf68c2d17441844e6fd")
+      .get("/api/events?user_id=64c7abf68c2d17441844e6fd") 
       .expect(200)
       .then(({ body }) => {
         const events = body.events;
@@ -514,6 +514,18 @@ describe("GET /api/events/", () => {
         expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811");
       });
   });
+  test("events can by filtered by user_id to return events where user is an attendee", () => {
+    return request(app)
+    .get("/api/events?user_id=64c7abf68c2d17441844e706&attending=true")  
+    .expect(200)
+    .then(({body}) => {
+      const events = body.events;
+      expect(events.length).toBe(4);
+      expect(events[0]).toHaveProperty("_id", "64c7b688411bcf756d6f0811")
+      expect(events[1]).toHaveProperty("_id", "64c7b688411bcf756d6f0812")
+    })
+    
+  })
   test("status:404 responds with an error message if user_id does not exist", () => {
     return request(app)
       .get("/api/events?user_id=64ca4d3dfc13ae0ef3089f7e")
