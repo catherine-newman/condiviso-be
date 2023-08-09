@@ -13,8 +13,7 @@ exports.postUser = (req, res, next) => {
     user_name,
     address,
     postcode,
-    about_me,
-    recipes,
+    about_me
   } = req.body;
   addUser(
     _id,
@@ -24,8 +23,7 @@ exports.postUser = (req, res, next) => {
     user_name,
     address,
     postcode,
-    about_me,
-    recipes
+    about_me
   )
     .then((data) => {
       res.status(201).send({ result: data });
