@@ -123,12 +123,26 @@ exports.updateUser = async (_id, updateData) => {
   }
 };
 
-exports.findUser = (user_id) => {
-  if (!ObjectId.isValid(user_id)) {
-    return Promise.reject({ status: 400, msg: "Bad Request" });
+exports.findUserById = async (_id) => {
+  const client = await connectToDatabase(); 
+  const collection = client.db("condiviso").collection("users");
+  
+  try {
+    const result = await collection.findOne({ _id: _id});
+    return result;
+  } catch (error) {
+    throw error;
   }
-  return connectToDatabase().then((client) => {
-    const collection = client.db("condiviso").collection("users");
-    return collection.findOne({_id: user_id });
-  });
+};
+
+exports.findUserByUsername = async (user_name) => {
+  const client = await connectToDatabase(); 
+  const collection = client.db("condiviso").collection("users");
+  
+  try {
+    const result = await collection.findOne({ user_name });
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };

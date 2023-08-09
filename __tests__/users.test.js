@@ -287,24 +287,6 @@ describe("PATCH /api/users/_id", () => {
   });
 });
 
-describe("GET /api/users/:_id", () => {
-  test("return 200 status, should return a single user", () => {
-    return request(app)
-      .get("/api/users/64c7abf68c2d17441844e6fd")
-      .expect(200)
-      .then(({body}) => {
-        expect(body).toHaveProperty("first_name");
-        expect(body).toHaveProperty("last_name")
-        expect(body).toHaveProperty("email")
-        expect(body).toHaveProperty("user_name")
-        expect(body).toHaveProperty("address")
-        expect(body).toHaveProperty("postcode")
-        expect(body).toHaveProperty("about_me")
-        expect(body._id).toBe("64c7abf68c2d17441844e6fd")
-      })
-  });
-});
-
 describe('Error Handling 404', () => {
   test('should return 404 status, should return an error when the user is not found', () => {
     return request(app)
@@ -317,14 +299,47 @@ describe('Error Handling 404', () => {
   });
 });
 
-describe('Error Handling 400', () => { 
-  test('Should return 400 status, should return an error when the id is invalid', () => { 
+describe('Error Handling 404', () => { 
+  test('Should return 404 status, should return an error when passed a username that does not exist', () => { 
     return request(app)
     .get("/api/users/64c7abf68c2d17441844e71?")
-    .expect(400)
+    .expect(404)
     .then(({body}) => {
       expect(body).toHaveProperty("msg");
-      expect(body.msg).toBe("Bad Request");
+      expect(body.msg).toBe("User not found");
     })
   }); 
+});
+
+describe("GET /api/users/:user_param", () => {
+  test("return 200 status, should return a single user by user_name", () => {
+    return request(app)
+      .get("/api/users/jhaseldine1")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveProperty("user");
+        expect(body.user).toHaveProperty("_id");
+        expect(body.user).toHaveProperty("first_name");
+        expect(body.user).toHaveProperty("last_name");
+        expect(body.user).toHaveProperty("email");
+        expect(body.user).toHaveProperty("user_name");
+        expect(body.user.user_name).toBe("jhaseldine1");
+      });
+  });
+
+  test("return 200 status, should return a single user by _id", () => {
+    const validId = "64c7abf68c2d17441844e6fd";
+    return request(app)
+      .get(`/api/users/${validId}`)
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveProperty("user");
+        expect(body.user).toHaveProperty("_id");
+        expect(body.user).toHaveProperty("first_name");
+        expect(body.user).toHaveProperty("last_name");
+        expect(body.user).toHaveProperty("email");
+        expect(body.user).toHaveProperty("user_name");
+      
+      });
+  });
 });
