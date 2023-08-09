@@ -9,8 +9,7 @@ exports.addUser = async (
   user_name,
   address,
   postcode,
-  about_me,
-  recipes) => {
+  about_me) => {
   if (
     !first_name ||
     !last_name ||
@@ -18,8 +17,7 @@ exports.addUser = async (
     !user_name ||
     !address ||
     !postcode ||
-    !about_me ||
-    !recipes
+    !about_me
   )
     return Promise.reject({ status: 400, msg: "Bad Request" });
   const emailRegex =
@@ -48,9 +46,9 @@ exports.addUser = async (
         last_name,
         user_name: lowerUserName,
         address,
+        email,
         postcode,
-        about_me,
-        recipes
+        about_me
       };
       return collection.insertOne(newUser);
     }
