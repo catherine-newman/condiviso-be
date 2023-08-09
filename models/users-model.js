@@ -126,7 +126,13 @@ exports.findUserById = async (_id) => {
   const collection = client.db("condiviso").collection("users");
   
   try {
-    const result = await collection.findOne({ _id: _id});
+    const result1 = await collection.findOne({ _id: _id});
+    if (result1) {
+      return result1;
+    } else {
+      const result2 = await collection.findOne({ _id: new ObjectId(_id)});
+      return result2;
+    }
     return result;
   } catch (error) {
     throw error;
