@@ -1,7 +1,5 @@
 const { addUser } = require("../models/users-model");
 const { updateUser } = require("../models/users-model");
-const { findUser } = require("../models/users-model");
-const { findUsername } = require("../models/users-model")
 const { ObjectId } = require("mongodb");
 const {findUserById} = require("../models/users-model")
 const {findUserByUsername} = require("../models/users-model")
@@ -50,31 +48,6 @@ exports.patchUser = (req, res, next) => {
     });
 };
 
-// exports.getUser = (req, res, next) => {
-//   const { user_id } = req.params;
-//   findUser(user_id)
-//     .then((data) => {
-//       if (!data) {
-//         return Promise.reject({ status: 404, msg: "User not found" });
-//       }
-
-//       res.status(200).send(data);
-//     })
-//     .catch((err) => {
-//       return next(err);
-//     });
-// };
-
-// exports.getUsername = async (req, res, next) => {
-//   console.log("in controller <<<<<<")
-//   const { user_name } = req.params;
-//   try {
-//     const data = await findUsername(user_name);
-//     res.status(200).send({ user : data });
-//   } catch (err) {
-//     return next(err);
-//   }
-// }
 exports.getUser = async (req, res, next) => {
   const { user_param } = req.params;
   try {
@@ -85,11 +58,11 @@ exports.getUser = async (req, res, next) => {
       }else{
         res.status(200).send({ user: data });
       }
-    }                 // IF THIS CHECKS OUT REMOVE THE REQUIRES FROM THE TOP
+    }                 
      else {
       const data = await findUserByUsername(user_param);
       if(data === null){
-        res.status(400).send({ msg: "Bad Request"});
+        res.status(404).send({ msg: "User not found"});
       }else{
       res.status(200).send({ user: data });
     }
