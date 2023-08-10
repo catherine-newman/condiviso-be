@@ -12,6 +12,8 @@ exports.findRecipe = async (recipe_id) => {
     const result2 = await collection.findOne({ _id: new ObjectId(recipe_id) });
     if (!result2) {
       return Promise.reject({ status: 404, msg: "Not Found" });
+    } else {
+      return result2;
     }
   }
   return result;
