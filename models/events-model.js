@@ -99,7 +99,12 @@ exports.findEvent = async (event_id) => {
   const eventsCollection = client.db("condiviso").collection("events");
   const result = await eventsCollection.findOne({ _id: event_id });
   if (!result) {
-    return Promise.reject({ status: 404, msg: "Not Found" });
+    const result2 = await eventsCollection.findOne({ _id: new ObjectId(event_id) });
+    if (!result2) {
+      return Promise.reject({ status: 404, msg: "Not Found" });
+    } else {
+      return result2;
+    }
   }
   return result;
 };
