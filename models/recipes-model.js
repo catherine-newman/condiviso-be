@@ -9,7 +9,10 @@ exports.findRecipe = async (recipe_id) => {
   const collection = client.db("condiviso").collection("recipes");
   const result = await collection.findOne({ _id: recipe_id });
   if (!result) {
-    return Promise.reject({ status: 404, msg: "Not Found" });
+    const result2 = await collection.findOne({ _id: new ObjectId(recipe_id) });
+    if (!result2) {
+      return Promise.reject({ status: 404, msg: "Not Found" });
+    }
   }
   return result;
 };
