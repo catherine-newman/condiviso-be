@@ -270,5 +270,21 @@
           "recipe_image": "Spaghetti_Carbonara.jpeg"
         }
     }
+  },
+  "POST /api/recipes": {
+    "description": "adds a new recipe",
+    "queries": [],
+    "format": {
+      "_id": "64ca62fffc13ae0edc08b303",
+        "user_id": "64c7abf68c2d17441844e6fd",
+        "recipe_name": "tomato soup",
+        "recipe_ingredients": "catfish",
+        "recipe_content": "mix it up",
+        "recipe_image": "http://dummyimage.com/186x100.png/cc0000/ffffff",
+        "exampleResponse": {
+          "acknowledged": true,
+          "insertedId": "64ca62fffc13ae0edc08b303"
+        }
+    }
   }
 }
