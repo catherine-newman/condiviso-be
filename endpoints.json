@@ -314,5 +314,31 @@
     "queries": [],
     "format": {},
     "exampleResponse": {}
+  },
+  "PATCH /api/users/_id": {
+    "description": "modifies a user specified by id",
+    "queries": [],
+    "format": {
+      "_id": "64c7abf68c2d17441844e659",
+      "first_name": "Mac",
+      "last_name": "Jones",
+      "email": "marchelleu@businessinsider.com",
+      "user_name": "murling888",
+      "address": "123 street",
+      "postcode": "M1 7ED",
+      "about_me": "I adore French cuisine",
+      "recipes": [
+          {
+            "recipe_name": "aenean lectus",
+            "recipe_image": "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            "recipe_content":
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."
+          }
+        ]
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "64c7abf68c2d17441844e659"
+    }
   }
 }
