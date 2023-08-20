@@ -180,5 +180,55 @@
         }
       ]
     }
+  },
+  "PATCH /api/events/:_id": {
+    "description": "modifies an event",
+    "queries": [],
+    "formnat": {
+      "event_name": "happy meal",
+      "event_date": "2023-08-01T00:00:00.000Z",
+      "event_description": "come get food",
+      "event_duration": 3,
+      "attendees": [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ],
+     "max_attendees": 10
+    },
+    "exampleResponse":  {
+      "updatedEvent": {
+        "id": "64c7b688411bcf756d6f0811",
+        "user_id": "64c7abf68c2d17441844e6fd",
+        "event_name": "happy meal",
+        "first_name": "Marchelle",
+        "last_name": "Urling",
+        "user_name": "murling0",
+        "email": "murling0@businessinsider.com",
+        "event_date": "2023-08-01T00:00:00.000Z",
+        "event_location": "Riga Street, Manchester, United Kingdom",
+        "postcode": "M4 4GL",
+        "coordinate": { "type": "Point", "coordinates":  [-2.2363, 53.48481]},
+        "coordinate_fuzzy": { "type": "Point", "coordinates": [-2.233331, 53.485164] },
+        "event_city": "Manchester",
+        "event_description": "come get food",
+        "event_duration": 3,
+        "max_attendees": 10,
+        "spaces_free": 7,
+        "attendees": [ {
+          "first_name": "Marchelle",
+          "user_id": "64c7abf68c2d17441844e6fd"
+        },
+        {
+          "first_name": "Guinevere",
+          "user_id": "64c7abf68c2d17441844e706"
+        },
+        {
+          "first_name": "Myrtle",
+          "user_id": "64c7abf68c2d17441844e703"
+        } ],
+        "recipes": [ "64ca4d3dfc13ae0ef3089f7b" ]
+      }
+    }
   }
 }
