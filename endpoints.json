@@ -308,5 +308,11 @@
         "recipe_image": "Spaghetti_Carbonara.jpeg"
       }
     }
+  },
+  "DELETE /api/recipes/:_id": {
+    "description": "deletes recipe specified by id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {}
   }
 }
