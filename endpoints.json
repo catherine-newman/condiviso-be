@@ -254,5 +254,21 @@
         }
       ]
     }
+  },
+  "GET /api/recipes/:recipe_id": {
+    "description": "serves the recipe for the specified id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {
+      "recipe": 
+        {
+          "_id": "64ca4d3dfc13ae0ef3089f7b",
+          "user_id": "64c7abf68c2d17441844e6fd",
+          "recipe_name": "Classic Spaghetti Carbonara",
+          "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+          "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+          "recipe_image": "Spaghetti_Carbonara.jpeg"
+        }
+    }
   }
 }
