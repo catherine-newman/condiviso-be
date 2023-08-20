@@ -233,7 +233,14 @@
   },
   "GET /api/recipes": {
     "description": "serves all recipes",
-    "queries": [],
+    "queries": [
+      {
+        "name": "user_id",
+        "description": "Filter recipes by user ID",
+        "type": "string",
+        "required": false
+      }
+    ],
     "format": {},
     "exampleResponse": {
       "recipes": [
@@ -247,5 +254,6 @@
         }
       ]
     }
-  }
+  },
+
 }
