@@ -280,11 +280,11 @@
         "recipe_name": "tomato soup",
         "recipe_ingredients": "catfish",
         "recipe_content": "mix it up",
-        "recipe_image": "http://dummyimage.com/186x100.png/cc0000/ffffff",
-        "exampleResponse": {
-          "acknowledged": true,
-          "insertedId": "64ca62fffc13ae0edc08b303"
-        }
+        "recipe_image": "http://dummyimage.com/186x100.png/cc0000/ffffff"
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "64ca62fffc13ae0edc08b303"
     }
   },
   "PATCH /api/recipes/:recipe_id": {
