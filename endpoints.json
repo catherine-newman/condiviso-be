@@ -184,7 +184,7 @@
   "PATCH /api/events/:_id": {
     "description": "modifies an event",
     "queries": [],
-    "formnat": {
+    "format": {
       "event_name": "happy meal",
       "event_date": "2023-08-01T00:00:00.000Z",
       "event_description": "come get food",
