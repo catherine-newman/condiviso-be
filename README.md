@@ -11,6 +11,7 @@ Link to hosted api: https://condiviso-be.onrender.com/api/events
 - [Database](#database)
 - [Environment Variables](#environment-variables)
 - [Contributors] (#contributors)
+-[License] (#license)
 
 ## Setup
 
@@ -55,6 +56,9 @@ Note: Replace <username>, <password>, and <cluster-url> with your MongoDB Atlas 
 Catherine Newman, Harriet Hall, Luke Ford, Stephen Lancaster and Simone Dessi. 
 
 
+## License
+
+This project is licensed under the [MIT License]
 
 
 
