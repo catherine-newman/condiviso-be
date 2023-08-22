@@ -34,9 +34,6 @@ The endpoints available allow the following functionality:
 
 The backend uses MongoDB to store user data, events, and recipes. Database connection and management are handled by the db/connection.js module. Data seeding is performed using the db/data/run-seed.js script.
 
-To seed the database with initial data, run the following command:
- `node db/data/run-seed.js`
-
 
 ## Environment Variables
 
