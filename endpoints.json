@@ -180,5 +180,180 @@
         }
       ]
     }
+  },
+  "PATCH /api/events/:_id": {
+    "description": "modifies an event",
+    "queries": [],
+    "format": {
+      "event_name": "happy meal",
+      "event_date": "2023-08-01T00:00:00.000Z",
+      "event_description": "come get food",
+      "event_duration": 3,
+      "attendees": [
+        { "user_name": "anakin" },
+        { "user_name": "obi" },
+        { "user_name": "quigon" }
+     ],
+     "max_attendees": 10
+    },
+    "exampleResponse":  {
+      "updatedEvent": {
+        "id": "64c7b688411bcf756d6f0811",
+        "user_id": "64c7abf68c2d17441844e6fd",
+        "event_name": "happy meal",
+        "first_name": "Marchelle",
+        "last_name": "Urling",
+        "user_name": "murling0",
+        "email": "murling0@businessinsider.com",
+        "event_date": "2023-08-01T00:00:00.000Z",
+        "event_location": "Riga Street, Manchester, United Kingdom",
+        "postcode": "M4 4GL",
+        "coordinate": { "type": "Point", "coordinates":  [-2.2363, 53.48481]},
+        "coordinate_fuzzy": { "type": "Point", "coordinates": [-2.233331, 53.485164] },
+        "event_city": "Manchester",
+        "event_description": "come get food",
+        "event_duration": 3,
+        "max_attendees": 10,
+        "spaces_free": 7,
+        "attendees": [ {
+          "first_name": "Marchelle",
+          "user_id": "64c7abf68c2d17441844e6fd"
+        },
+        {
+          "first_name": "Guinevere",
+          "user_id": "64c7abf68c2d17441844e706"
+        },
+        {
+          "first_name": "Myrtle",
+          "user_id": "64c7abf68c2d17441844e703"
+        } ],
+        "recipes": [ "64ca4d3dfc13ae0ef3089f7b" ]
+      }
+    }
+  },
+  "GET /api/recipes": {
+    "description": "serves all recipes",
+    "queries": [
+      {
+        "name": "user_id",
+        "description": "Filter recipes by user ID",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "format": {},
+    "exampleResponse": {
+      "recipes": [
+        {
+          "_id": "64ca4d3dfc13ae0ef3089f7b",
+          "user_id": "64c7abf68c2d17441844e6fd",
+          "recipe_name": "Classic Spaghetti Carbonara",
+          "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+          "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+          "recipe_image": "Spaghetti_Carbonara.jpeg"
+        }
+      ]
+    }
+  },
+  "GET /api/recipes/:recipe_id": {
+    "description": "serves the recipe for the specified id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {
+      "recipe": 
+        {
+          "_id": "64ca4d3dfc13ae0ef3089f7b",
+          "user_id": "64c7abf68c2d17441844e6fd",
+          "recipe_name": "Classic Spaghetti Carbonara",
+          "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+          "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+          "recipe_image": "Spaghetti_Carbonara.jpeg"
+        }
+    }
+  },
+  "POST /api/recipes": {
+    "description": "adds a new recipe",
+    "queries": [],
+    "format": {
+      "_id": "64ca62fffc13ae0edc08b303",
+        "user_id": "64c7abf68c2d17441844e6fd",
+        "recipe_name": "tomato soup",
+        "recipe_ingredients": "catfish",
+        "recipe_content": "mix it up",
+        "recipe_image": "http://dummyimage.com/186x100.png/cc0000/ffffff"
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "64ca62fffc13ae0edc08b303"
+    }
+  },
+  "PATCH /api/recipes/:recipe_id": {
+    "description": "modifies a recipe",
+    "queries": [],
+    "format": {
+      "_id": "64ca4d3dfc13ae0ef3089f7b",
+    "user_id": "64c7abf68c2d17441844e6fd",
+    "recipe_name": "Classic Spaghetti Carbonara",
+    "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+    "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+    "recipe_image": "Spaghetti_Carbonara.jpeg"
+    }, 
+    "exampleResponse": {
+      "result": {
+        "_id": "64ca4d3dfc13ae0ef3089f7b",
+        "user_id": "64c7abf68c2d17441844e6fd",
+        "recipe_name": "Pizza",
+        "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+        "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+        "recipe_image": "Spaghetti_Carbonara.jpeg"
+      }
+    }
+  },
+  "DELETE /api/recipes/:_id": {
+    "description": "deletes recipe specified by id",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {}
+  },
+  "GET /api/users/:user_param": {
+    "description": "serves a user specified by user_param",
+    "queries": [],
+    "format": {},
+    "exampleResponse": {
+      "result": {
+        "_id": "64ca4d3dfc13ae0ef3089f7b",
+        "user_id": "64c7abf68c2d17441844e6fd",
+       "recipe_name": "Pizza",
+        "recipe_ingredients": "200g spaghetti, 100g pancetta diced, 2 large eggs, 50g grated Pecorino Romano cheese, 2 cloves garlic minced, Salt and black pepper to taste",
+        "recipe_content": "Boil spaghetti until al dente. In a pan, cook pancetta and garlic until crispy. In a bowl, whisk eggs and cheese. Drain spaghetti and add to the pancetta pan. Turn off the heat and quickly mix in the egg mixture. The heat will cook the eggs. Season with salt and pepper. Serve immediately.",
+        "recipe_image": "Spaghetti_Carbonara.jpeg"
+      }
+    }
+  },
+  "PATCH /api/users/_id": {
+    "description": "modifies a user specified by id",
+    "queries": [],
+    "format": {
+      "_id": "64c7abf68c2d17441844e659",
+      "first_name": "Mac",
+      "last_name": "Jones",
+      "email": "marchelleu@businessinsider.com",
+      "user_name": "murling888",
+      "address": "123 street",
+      "postcode": "M1 7ED",
+      "about_me": "I adore French cuisine",
+      "recipes": [
+          {
+            "recipe_name": "aenean lectus",
+            "recipe_image": "http://cbslocal.com/ut.aspx?arcu=quis&sed=turpisdio",
+            "recipe_content":
+              "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."
+          }
+        ]
+    },
+    "exampleResponse": {
+      "acknowledged": true,
+      "insertedId": "64c7abf68c2d17441844e659"
+    }
   }
 }
